@@ -13,14 +13,14 @@ static char ScanCodes[256]={0, 0, '1', '2', '3', '4', '5', '6', '7', '8', '9', '
 
 void keyboard_handler(int key){
     //int key = getKey();
-
+    putChar(key, FOREGROUND, BACKGROUND, 1);
     static int capsLockOn = 0;
 
     /* if(key == 0x1B){
         *flag = 1;
     } */
 
-    if (ScanCodes[key] == 'p') //pink
+    /* if (ScanCodes[key] == 'p') //pink
     {
         paint(0xd61c44);
     }    
@@ -35,7 +35,7 @@ void keyboard_handler(int key){
     if (ScanCodes[key] == 'b') //blue
     {
         paint(0x2a12ff);
-    }
+    } */
 
     if (key == 0x3A) { // Caps Lock press
         capsLockOn = 1 - capsLockOn; // Toggle the Caps Lock status
@@ -47,7 +47,7 @@ void keyboard_handler(int key){
 
     if(key == 0x39){ // space
         ncPrint(" ");
-        paint(0xd61c44);
+        //paint(0xd61c44);
         return;
     }
     if(ScanCodes[key] == '\b'){
@@ -60,15 +60,19 @@ void keyboard_handler(int key){
     }
     if(ScanCodes[key] == '\n'){
         ncNewline();
-        paint(0x90f56c);
+        //paint(0x90f56c);
         //scroll();
         return;
     }
     if( key >= 0 && key <= 256 && ScanCodes[key] != 0 ){
         if (capsLockOn) {
             ncPrintChar(ScanCodes[key] - ('a' - 'A'));
-        } else {
+            putChar(ScanCodes[key] - ('a' - 'A'),FOREGROUND,BACKGROUND,1);
+        }
+        else
+        {
             ncPrintChar(ScanCodes[key]);
+            putChar(ScanCodes[key] - ('a' - 'A'),FOREGROUND,BACKGROUND,1);
         }
         return;
     }

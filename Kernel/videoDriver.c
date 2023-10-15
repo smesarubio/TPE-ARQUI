@@ -1,4 +1,6 @@
 #include <stdint.h>
+#include <videoDriver.h>
+#include <fonts.h>
 
 struct vbe_mode_info_structure {
 	uint16_t attributes;		// deprecated, only bit 7 should be of interest to you, and it indicates the mode supports a linear frame buffer.
@@ -39,9 +41,32 @@ struct vbe_mode_info_structure {
 } __attribute__ ((packed));
 
 typedef struct vbe_mode_info_structure *VBEInfoPtr;
+unsigned int WIDTH = 1024;
+unsigned int HEIGHT = 768;
+unsigned int PIXEL_SIZE = 3; //bytes por pixel 
+unsigned int DEFAULT_BG_COLOUR = BACKGROUND;
+unsigned int DEFAULT_FONT_COLOUR = FOREGROUND;
+
+unsigned int USER_LENGHT=0;//14
+unsigned int lineCounter=0;
+
 
 VBEInfoPtr VBE_mode_info = (VBEInfoPtr)0x0000000000005C00;
 
+typedef struct
+{
+    int defaultBGColour;
+    int defaultFontColour;
+    uint32_t currentX;
+    uint32_t currentY;
+    uint32_t offset;
+    uint32_t width;
+    uint32_t height;
+   // uint32_t firstLine;
+    //uint32_t firstLineWidth;
+} t_screen;
+
+t_screen * screen;
 
 void putPixel(uint32_t hexColor, uint64_t x, uint64_t y){
     uint8_t *framebuffer = (uint8_t *) VBE_mode_info->framebuffer;
@@ -51,13 +76,100 @@ void putPixel(uint32_t hexColor, uint64_t x, uint64_t y){
     framebuffer[offset+2] = (hexColor>>16) & 0xFF; // ROJO
 }
 
+void load_video(){
+
+    screen->defaultBGColour = DEFAULT_BG_COLOUR;
+    screen->defaultFontColour = DEFAULT_FONT_COLOUR;
+    screen->currentX = 0;
+    screen->offset=0;
+    screen->currentY = 0;
+	screen->width = WIDTH;
+    screen->height = HEIGHT;
+	paint(DEFAULT_BG_COLOUR);
+}
+
 void paint(uint32_t color){
-		for (unsigned int i = 0; i < 2000; i++)
+		for (unsigned int i = 0; i < WIDTH; i++)
 	{
-		for (unsigned int j = 0; j < 2000; j++)
+		for (unsigned int j = 0; j < HEIGHT; j++)
 		{
 			putPixel(color, i, j);
 		}
 		
 	}	
+}
+
+
+void newLine(){
+	/*  if(screen->height-screen->currentY <=CHAR_HEIGHT){
+            screen->currentY -=CHAR_HEIGHT;
+        }else{
+            screen->currentY+=CHAR_HEIGHT;
+            
+        } */
+	screen->currentY+=CHAR_HEIGHT;
+    screen->currentX=0; 
+}
+
+
+
+
+void deleteChar(){
+    if(screen->currentX<=USER_LENGHT*CHAR_WIDTH && lineCounter==0){
+      return;  
+    } 
+    if(screen->currentX==0){
+        if(screen->currentY==0 ){
+            return;
+        }
+    screen->currentY-=CHAR_HEIGHT;
+    lineCounter--;
+       screen->currentX=screen->width-(2*CHAR_WIDTH);
+    }
+    screen->currentX-=CHAR_WIDTH;
+    putChar(' ',BACKGROUND,BACKGROUND,0);
+}
+
+
+void putChar(char c, colorscheme fontColor, colorscheme bgColor, int next){
+	char *map = getCharMap(c);
+    
+    uint32_t x = screen->currentX+screen->offset;
+    uint32_t y = screen->currentY;
+  
+    
+    if(x+(2*CHAR_WIDTH)-screen->offset >= screen->width){ 
+    
+        y+=CHAR_HEIGHT;
+        lineCounter++;
+        newLine();
+        
+    }
+    if(c=='\n'){
+        lineCounter=0;
+        newLine();
+        return ;
+    }
+    if(c=='\b'){
+        deleteChar();
+        return ;
+    }
+
+    for(int i=0;i<CHAR_HEIGHT;i++){
+        for(int j=0;j<CHAR_WIDTH;j++){
+            int8_t isFont = (map[i] >> (CHAR_WIDTH - j - 1)) & 0x01;  //-1 para no romper el decalaje, primera vez tengo q decalar 7
+            if (isFont) {
+                putPixel(x, y, fontColor);
+            } else {
+                putPixel(x, y, bgColor);
+            }
+            x++;
+        }
+        x=screen->currentX+screen->offset;
+        y++;
+    }
+    
+    if(next){
+        screen->currentX+=CHAR_WIDTH;
+    }
 }
