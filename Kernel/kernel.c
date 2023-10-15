@@ -84,8 +84,8 @@ void * initializeKernelBinary()
 	ncPrint("[Done]");
 	ncNewline();
 	ncNewline();
-	load_idt(); 
 	load_video();
+	load_idt(); 
 	return getStackBase();
 }
 
@@ -114,7 +114,7 @@ int main()
 	ncNewline();
 	// int escPressed = 0;
 	ncPrint("[Finished]");
-	while (1)
+	while (1);
 	return 0;
 }
 

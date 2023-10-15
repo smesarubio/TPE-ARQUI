@@ -11,61 +11,14 @@ static char ScanCodes[256]={0, 0, '1', '2', '3', '4', '5', '6', '7', '8', '9', '
 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', '`', 0, '\\', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 0, 0 };
 
 
-void keyboard_handler(int key){
-    //int key = getKey();
+void keyboard_handler(){
+    int key = getKey();
     static int capsLockOn = 0;
 
-    static int x0 = 0;
-    static int y0 = 0;
 
 
-    //square(FOREGROUND, x0, y0, 50);
-
-    /* if(key == 0x1B){
-        *flag = 1;
-    } */
-
-    if (ScanCodes[key] == 'w') //pink
-    {
-        //y0-=50;
-        //(FOREGROUND, x0, y0, 50);
-        //font();
-    }
-
-    /* 
-    if (ScanCodes[key] == 'a') //pink
-    {
-        x0-=50;
-        square(FOREGROUND, x0, y0, 50);
-    }
-
-    if (ScanCodes[key] == 's') //pink
-    {
-        y0+=50;
-        square(FOREGROUND, x0, y0, 50);
-    }
-    
-    if (ScanCodes[key] == 'd') //pink
-    {
-        x0+=50;
-        square(FOREGROUND, x0, y0, 50);
-    }
 
 
- */
-    /* 
-    if (ScanCodes[key] == 'r') //red
-    {
-        paint(0xeb050c);
-    }
-    if (ScanCodes[key] == 'g') //green
-    {
-        paint(0x90f56c);
-    }
-    if (ScanCodes[key] == 'b') //blue
-    {
-        paint(0x2a12ff);
-    } */
 
     if (key == 0x3A) { // Caps Lock press
         capsLockOn = 1 - capsLockOn; // Toggle the Caps Lock status
@@ -77,32 +30,36 @@ void keyboard_handler(int key){
 
     if(key == 0x39){ // space
         ncPrint(" ");
-        //paint(0xd61c44);
+        write(' ');
+        // paint(0xd61c44);
         return;
     }
     if(ScanCodes[key] == '\b'){
         ncBackspace();
+        printBackspace();
         return;
     }
     if(ScanCodes[key] == '\t'){
         ncPrint("    ");
+        printTab();
         return;
     }
     if(ScanCodes[key] == '\n'){
         ncNewline();
-        //paint(0x90f56c);
-        //scroll();
+        printNewLine();
+        // paint(0x90f56c);
+        // scroll();
         return;
     }
     if( key >= 0 && key <= 256 && ScanCodes[key] != 0 ){
         if (capsLockOn) {
             ncPrintChar(ScanCodes[key] - ('a' - 'A'));
-            //putChar(ScanCodes[key] - ('a' - 'A'),FOREGROUND,BACKGROUND,1);
+            write(ScanCodes[key] - ('a' - 'A') );
         }
         else
         {
             ncPrintChar(ScanCodes[key]);
-            //putChar(ScanCodes[key] - ('a' - 'A'),FOREGROUND,BACKGROUND,1);
+            write(ScanCodes[key]);
         }
         return;
     }

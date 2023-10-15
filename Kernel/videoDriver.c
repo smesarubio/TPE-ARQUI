@@ -2,7 +2,6 @@
 #include <videoDriver.h>
 #include <fonts.h>
 
-void printCharAt(char c, int x0, int y0);
 
 struct vbe_mode_info_structure
 {
@@ -81,20 +80,22 @@ void putPixel(uint32_t hexColor, uint64_t x, uint64_t y){
 
 void load_video(){
 
-    screen->defaultBGColour = DEFAULT_BG_COLOUR;
-    screen->defaultFontColour = DEFAULT_FONT_COLOUR;
-    screen->currentX = 0;
+    screen->defaultBGColour = BACKGROUND;
+    screen->defaultFontColour = FOREGROUND;
+    screen->currentX = 2;
     screen->offset=0;
-    screen->currentY = 0;
+    screen->currentY = 28;
 	screen->width = WIDTH;
     screen->height = HEIGHT;
 	paint(screen->defaultBGColour);
+	/* 
+	printCharAt('S', 1, 28);
 	printCharAt('S', 400, 400);
 	printCharAt('a', 408, 400);
 	printCharAt('n', 408+8, 400);
 	printCharAt('c', 408+8+8, 400);
 	printCharAt('h', 408+8+8+8, 400);
-	printCharAt('u', 408+8+8+8+8, 400);
+	printCharAt('u', 408+8+8+8+8, 400); */
 
 }
 
@@ -110,7 +111,33 @@ void paint(uint32_t color){
 
 }
 
+void write(char c){
 
+	printCharAt(c, screen->currentX, screen->currentY);
+	screen->currentX += 8;
+	if (screen->currentX>= screen->width){
+		screen->currentX = 2;
+		screen->currentY += 16;
+	}
+}
+
+
+void printTab(){
+	for (int i = 0; i < 8; i++)
+	{
+		write(' ');
+	}
+}
+
+void printNewLine(){
+	screen->currentY += 16;
+	screen->currentX = 0;
+}
+
+void printBackspace(){
+	screen->currentX -= 8;
+	printCharAt(' ', screen->currentX, screen->currentY);
+}
 
 void printCharAt(char c, int x0, int y0){
 	uint8_t *  s = getCharMap(c);

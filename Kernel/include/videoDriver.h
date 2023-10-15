@@ -14,10 +14,14 @@ typedef enum
     FOREGROUND = 0xdcdfe4,
 }colorscheme;
 
-void putChar(char c, colorscheme fontColor, colorscheme bgColor, int next);
+void printCharAt(char c, int x0, int y0);
 void putPixel(uint32_t hexColor, uint64_t x, uint64_t y);
 void paint(uint32_t color);
 void square(uint32_t color, int x, int y, int size);
+void write(char c);
+void printNewLine();
+void printTab();
 void load_video();
+void printBackspace();
 void font();
 #endif

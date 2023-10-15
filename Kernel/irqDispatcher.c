@@ -16,9 +16,9 @@ void irqDispatcher(uint64_t irq,  uint64_t rdi, uint64_t rsi, uint64_t rdx, uint
 			//ncPrint("Entra");
 			int_21();
 			break;
-		case 0x60:
-			int_80(rdi, rsi,  rdx,  rcx,  r8);
-			break;
+		//case 0x60:
+			//int_80(rdi, rsi,  rdx,  rcx,  r8);
+			//break;
 		}
 	return;
 }
@@ -29,7 +29,7 @@ void int_20() {
 }
 
 void int_21(){
-	keyboard_handler(getKey());
+	keyboard_handler();
 }
 
 void int_80( uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8){

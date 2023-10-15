@@ -1,8 +1,7 @@
 #ifndef KEYBOARD_DRIVER_H
 #define KEYBOARD_DRIVER_H
 
-int getKey();
-void keyboard_handler(int key);
-
+extern int getKey();
+void keyboard_handler();
 
 #endif /* KEYBOARD_DRIVER_H */
