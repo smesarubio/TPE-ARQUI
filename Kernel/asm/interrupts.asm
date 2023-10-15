@@ -19,6 +19,11 @@ GLOBAL _exception0Handler
 EXTERN irqDispatcher
 EXTERN exceptionDispatcher
 
+
+GLOBAL _syscall
+
+GLOBAL _opcodeExp
+
 SECTION .text
 
 %macro pushState 0
@@ -178,5 +183,21 @@ haltcpu:
 
 
 
-SECTION .bss
-	aux resq 1
+
+
+
+_syscall:
+    push rbp
+    mov rbp, rsp
+	pushState
+
+    int 80h
+
+	popState
+	mov rsp, rbp
+    pop rbp
+
+    ret
+_opcodeExp:
+	UD2
+	ret

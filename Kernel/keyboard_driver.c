@@ -13,17 +13,47 @@ static char ScanCodes[256]={0, 0, '1', '2', '3', '4', '5', '6', '7', '8', '9', '
 
 void keyboard_handler(int key){
     //int key = getKey();
-    putChar(key, FOREGROUND, BACKGROUND, 1);
     static int capsLockOn = 0;
+
+    static int x0 = 0;
+    static int y0 = 0;
+
+
+    //square(FOREGROUND, x0, y0, 50);
 
     /* if(key == 0x1B){
         *flag = 1;
     } */
 
-    /* if (ScanCodes[key] == 'p') //pink
+    if (ScanCodes[key] == 'w') //pink
     {
-        paint(0xd61c44);
-    }    
+        //y0-=50;
+        //(FOREGROUND, x0, y0, 50);
+        //font();
+    }
+
+    /* 
+    if (ScanCodes[key] == 'a') //pink
+    {
+        x0-=50;
+        square(FOREGROUND, x0, y0, 50);
+    }
+
+    if (ScanCodes[key] == 's') //pink
+    {
+        y0+=50;
+        square(FOREGROUND, x0, y0, 50);
+    }
+    
+    if (ScanCodes[key] == 'd') //pink
+    {
+        x0+=50;
+        square(FOREGROUND, x0, y0, 50);
+    }
+
+
+ */
+    /* 
     if (ScanCodes[key] == 'r') //red
     {
         paint(0xeb050c);
@@ -67,12 +97,12 @@ void keyboard_handler(int key){
     if( key >= 0 && key <= 256 && ScanCodes[key] != 0 ){
         if (capsLockOn) {
             ncPrintChar(ScanCodes[key] - ('a' - 'A'));
-            putChar(ScanCodes[key] - ('a' - 'A'),FOREGROUND,BACKGROUND,1);
+            //putChar(ScanCodes[key] - ('a' - 'A'),FOREGROUND,BACKGROUND,1);
         }
         else
         {
             ncPrintChar(ScanCodes[key]);
-            putChar(ScanCodes[key] - ('a' - 'A'),FOREGROUND,BACKGROUND,1);
+            //putChar(ScanCodes[key] - ('a' - 'A'),FOREGROUND,BACKGROUND,1);
         }
         return;
     }

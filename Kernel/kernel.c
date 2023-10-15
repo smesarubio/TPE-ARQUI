@@ -114,9 +114,7 @@ int main()
 	ncNewline();
 	// int escPressed = 0;
 	ncPrint("[Finished]");
-	//putChar('H', FOREGROUND, BACKGROUND, 0);
-
-	while (1);
+	while (1)
 	return 0;
 }
 
