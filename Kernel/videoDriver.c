@@ -113,6 +113,28 @@ void paint(uint32_t color){
 	}	
 
 }
+/// @brief MAL
+void cursor() {
+    int changeDetected = 0;
+    if(!changeDetected && ticks_elapsed() % 9  ==0){
+            changeDetected=1;
+            writeStatic('_');
+            if(ticks_elapsed()%18==0){
+                writeStatic(' ');
+            }
+        }
+        if(changeDetected &&  ticks_elapsed() %6 !=0){
+            changeDetected=0;
+        }
+}
+
+void stopCursor() {
+    writeStatic(' ');
+}
+
+void writeStatic(char c){
+	printCharAt(c, screen->currentX, screen->currentY);
+}
 
 void write(char c){
 	if(c == 10){
@@ -148,7 +170,8 @@ void printNewLine(){
 
 void printBackspace(){
 	screen->currentX -= 8;
-	printCharAt(' ', screen->currentX, screen->currentY);
+	//printCharAt(0, screen->currentX+1, screen->currentY+1);
+	printCharAt(0, screen->currentX, screen->currentY);
 }
 
 void printCharAt(char c, int x0, int y0){

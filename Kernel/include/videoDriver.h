@@ -14,5 +14,8 @@ void printTab();
 void load_video();
 void printBackspace();
 void font();
+void writeStatic(char c);
+void cursor();
+void stopCursor();
 void hola();
 #endif

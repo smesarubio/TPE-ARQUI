@@ -9,6 +9,7 @@
 #include <time.h>
 #include <naiveConsole.h>
 #include <videoDriver.h>
+#include <shell.h>
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -85,7 +86,8 @@ void * initializeKernelBinary()
 	ncNewline();
 	ncNewline();
 	load_video();
-	load_idt(); 
+	load_idt();
+	startShell();
 	return getStackBase();
 }
 

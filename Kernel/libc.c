@@ -283,7 +283,7 @@ void newLine(){
 
 
 
-char *strcpy(char *destino, const char *fuente)
+char * strcpy(char *destino, const char *fuente)
 {
 
     char *aux = destino;

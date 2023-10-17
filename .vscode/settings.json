@@ -3,6 +3,8 @@
     "videodriver.h": "c",
     "stdint.h": "c",
     "syscalls.h": "c",
-    "shell.h": "c"
+    "shell.h": "c",
+    "libc.h": "c",
+    "keyboard_driver.h": "c"
   }
 }
