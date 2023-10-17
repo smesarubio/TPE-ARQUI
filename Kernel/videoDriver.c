@@ -3,6 +3,7 @@
 #include <syscalls.h>
 #include <colors.h>
 #include <fonts.h>
+#include <shell.h>
 
 
 struct vbe_mode_info_structure
@@ -90,7 +91,8 @@ void load_video(){
 	screen->width = WIDTH;
     screen->height = HEIGHT;
 	paint(screen->defaultBGColour);
-	/* 
+	//welcomeMessage();
+	/*
 	printCharAt('S', 1, 28);
 	printCharAt('S', 400, 400);
 	printCharAt('a', 408, 400);
@@ -98,7 +100,6 @@ void load_video(){
 	printCharAt('c', 408+8+8, 400);
 	printCharAt('h', 408+8+8+8, 400);
 	printCharAt('u', 408+8+8+8+8, 400); */
-
 }
 
 void paint(uint32_t color){
@@ -114,6 +115,10 @@ void paint(uint32_t color){
 }
 
 void write(char c){
+	if(c == 10){
+		printNewLine();
+		return;
+	}
 
 	printCharAt(c, screen->currentX, screen->currentY);
 	screen->currentX += 8;

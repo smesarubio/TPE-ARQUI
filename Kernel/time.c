@@ -2,6 +2,7 @@
 #include <naiveConsole.h>
 #include <videoDriver.h>
 #include <stdlib.h>
+
 static unsigned long ticks = 0;
 
 void timer_handler() {
@@ -14,6 +15,19 @@ void timer_handler() {
 		
 	}
 }
+
+void timer_wait(int tickazos)
+{
+    unsigned int eticks;
+ 
+    eticks = ticks + tickazos;
+    while(tickazos < eticks) 
+    {
+        __asm__ __volatile__ ("sti\nhlt\ncli");
+    }
+}
+
+
 
 int ticks_elapsed() {
 	return ticks;

@@ -2,6 +2,7 @@
   "files.associations": {
     "videodriver.h": "c",
     "stdint.h": "c",
-    "syscalls.h": "c"
+    "syscalls.h": "c",
+    "shell.h": "c"
   }
 }
