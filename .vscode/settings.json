@@ -1,5 +1,7 @@
 {
   "files.associations": {
-    "videodriver.h": "c"
+    "videodriver.h": "c",
+    "stdint.h": "c",
+    "syscalls.h": "c"
   }
 }

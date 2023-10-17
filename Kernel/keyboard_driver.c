@@ -47,6 +47,7 @@ void keyboard_handler(){
     if(ScanCodes[key] == '\n'){
         ncNewline();
         printNewLine();
+        //hola();
         // paint(0x90f56c);
         // scroll();
         return;

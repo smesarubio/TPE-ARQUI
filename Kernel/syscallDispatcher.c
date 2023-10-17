@@ -1,0 +1,13 @@
+#include <syscallDispatcher.h>
+#include <syscalls.h>
+void syscall_selector(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint32_t r9){
+    switch (rdi)
+    {
+    case SYS_WRITE_ID:
+        sys_write(rsi, rdx, rcx, r8, r9);
+        break;
+
+    default:
+        break;
+    }
+}

@@ -1,5 +1,7 @@
 #include <stdint.h>
 #include <videoDriver.h>
+#include <syscalls.h>
+#include <colors.h>
 #include <fonts.h>
 
 
@@ -120,6 +122,11 @@ void write(char c){
 		screen->currentY += 16;
 	}
 }
+
+void hola(){
+	//_syscall(SYS_WRITE_ID, " Kachu puta ", 30, screen->defaultBGColour, screen->defaultFontColour, 0);
+}
+
 
 
 void printTab(){
