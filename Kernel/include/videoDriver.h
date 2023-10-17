@@ -13,6 +13,7 @@ void printNewLine();
 void printTab();
 void load_video();
 void printBackspace();
+void printInScreen(char *c, int len);
 void font();
 void writeStatic(char c);
 void cursor();

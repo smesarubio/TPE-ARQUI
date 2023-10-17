@@ -113,7 +113,7 @@ void paint(uint32_t color){
 	}	
 
 }
-/// @brief MAL
+
 void cursor() {
     int changeDetected = 0;
     if(!changeDetected && ticks_elapsed() % 9  ==0){
@@ -135,6 +135,14 @@ void stopCursor() {
 void writeStatic(char c){
 	printCharAt(c, screen->currentX, screen->currentY);
 }
+
+
+void printInScreen(char * c, int len){
+	for (int i = 0; c[i] != 0 && i<len; i++){
+		write(c[i]);
+	}
+}
+
 
 void write(char c){
 	if(c == 10){

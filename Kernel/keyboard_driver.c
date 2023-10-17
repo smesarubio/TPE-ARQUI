@@ -57,30 +57,35 @@ void keyboard_handler(){
     }
     if(ScanCodes[key] == '\t'){
         ncPrint("    ");
+        putInBuffer('\t');
         printTab();
         return;
     }
     if(ScanCodes[key] == '\n'){
-        //startShell();
+        //printInScreen(buffer, buffSize);
+        printCoso();
         printNewLine();
-        //hola();
-        // paint(0x90f56c);
-        // scroll();
         return;
     }
     if( key >= 0 && key <= 256 && ScanCodes[key] != 0 ){
         if (capsLockOn) {
             ncPrintChar(ScanCodes[key] - ('a' - 'A'));
             write(ScanCodes[key] - ('a' - 'A') );
+            putInBuffer(ScanCodes[key]-('a'-'A'));
         }
         else
         {
             ncPrintChar(ScanCodes[key]);
             write(ScanCodes[key]);
+            putInBuffer(ScanCodes[key]);
         }
         return;
     }
     return;
+}
+
+void putInBuffer(char c){
+    buffer[buffSize++] = c;
 }
 
 char getKeyChar(){
@@ -110,44 +115,9 @@ char removeCharFromBuffer(){
 }
 
 
-/*
-void keyboard_handler(){
-    int key = getKey();
-
-    static int capsLockOn = 0;
-
-    if (key == 0x3A) {
-        capsLockOn = 1 - capsLockOn;
+void printCoso(){
+    for (int i = 0; i < buffSize; i++)
+    {
+        write(buffer[i]);
     }
-
-
-
-	if(key == 0x39){ // space
-		ncPrint(" ");
-		return;
-	}
-	if(ScanCodes[key] == '\b'){
-		ncBackspace();
-		return;
-	}
-	if(ScanCodes[key] == '\t'){
-		ncPrint("    ");
-		return;
-	}
-	if(ScanCodes[key] == '\n'){
-		ncNewline();
-		return;
-	}
-	if( key>=0 && key<=256 && ScanCodes[key] != 0 ){
-        if (capsLockOn) {
-            ncPrintChar(ScanCodes[key] - ('a' - 'A'));
-        } else {
-		    ncPrintChar(ScanCodes[key]);
-        }
-		return;
-	}
-	
-    capsLockOn = 0;
 }
-*/
-
