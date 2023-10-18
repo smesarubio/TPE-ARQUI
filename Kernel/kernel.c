@@ -1,15 +1,11 @@
 #include <stdint.h>
 #include <string.h>
 #include <lib.h>
-#include <keyboard_driver.h>
 #include <moduleLoader.h>
-#include <idtLoader.h>
-#include <interrupts.h>
-#include <defs.h>
-#include <time.h>
 #include <naiveConsole.h>
+#include <idtLoader.h>
+#include <keyboard_driver.h>
 #include <videoDriver.h>
-#include <shell.h>
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -87,7 +83,6 @@ void * initializeKernelBinary()
 	ncNewline();
 	load_video();
 	load_idt();
-	startShell();
 	return getStackBase();
 }
 
