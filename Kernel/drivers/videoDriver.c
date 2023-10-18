@@ -66,8 +66,9 @@ typedef struct
     uint32_t offset;
     uint32_t width;
     uint32_t height;
-   // uint32_t firstLine;
-    //uint32_t firstLineWidth;
+	int userLen;
+	// uint32_t firstLine;
+	// uint32_t firstLineWidth;
 } t_screen;
 
 t_screen * screen;
@@ -78,6 +79,10 @@ void putPixel(uint32_t hexColor, uint64_t x, uint64_t y){
     framebuffer[offset] = (hexColor) & 0xFF; //AZUL
     framebuffer[offset+1] = (hexColor>>8) & 0xFF ; //VERDE
     framebuffer[offset+2] = (hexColor>>16) & 0xFF; // ROJO
+}
+
+void setVideoUserLen(int len){
+	screen->userLen = len;
 }
 
 void load_video(){
@@ -162,7 +167,6 @@ void hola(){
 }
 
 
-
 void printTab(){
 	for (int i = 0; i < 8; i++)
 	{
@@ -178,7 +182,12 @@ void printNewLine(){
 void printBackspace(){
 	screen->currentX -= 8;
 	//printCharAt(0, screen->currentX+1, screen->currentY+1);
-	printCharAt(0, screen->currentX, screen->currentY);
+	if(screen->currentX<=screen->userLen*8){
+		screen->currentX += 8;
+	}else{
+		printCharAt(0, screen->currentX, screen->currentY);
+	}
+	return;
 }
 
 void printCharAt(char c, int x0, int y0){

@@ -7,7 +7,7 @@ void syscall_selector(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx, ui
         sys_write(rsi, rdx, rcx, r8, r9);
         break;
     case SYS_READ_ID:
-        sys_read();
+        sys_read(rsi, rdx, rcx, r8, r9);
     default:
         break;
     }

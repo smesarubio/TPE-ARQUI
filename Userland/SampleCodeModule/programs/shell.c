@@ -6,6 +6,7 @@ static char username[] = "Sanchu";
 
 void startShell()
 {
+    setUserLength(username);
     welcomeMessage();
     startedShell = 1;
     runShell();

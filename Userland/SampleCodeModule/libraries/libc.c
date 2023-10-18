@@ -17,6 +17,11 @@ void setFTC(t_color colour) {
     currentFTC = colour;
 }
 
+void setUserLength(char * user){
+    int len = strlen(user) + strlen("  > ")-1;
+    _syscall(SYS_READ_ID, 5, len,0,0,0);
+}
+
 void setBGC(t_color colour) {
     currentBGC = colour;
 }
@@ -25,9 +30,11 @@ void putChar(char c){
     _syscall(SYS_WRITE_ID, (uint64_t)&c, 1, currentBGC, currentFTC, 0);
 }
 
+/*
 void sendUserData(char *userName, int len){
    _syscall(SYS_WRITE_ID, (uint64_t)userName, len+1, currentBGC, currentFTC, (uint64_t) &len);
 }
+*/
 
 void setFirstChange(int number){
     if(number<0 || number>1)return;

@@ -84,7 +84,9 @@ void keyboard_handler(){
 }
 
 void putInBuffer(char c){
-    buffer[buffSize++] = c;
+    write('\'');
+    buffer[buffSize] = c;
+    buffSize= buffSize+1;
 }
 
 char getKeyChar(){
@@ -115,8 +117,6 @@ char removeCharFromBuffer(){
 
 
 void printCoso(){
-    for (int i = 0; i < buffSize; i++)
-    {
-        write(buffer[i]);
-    }
+    if(buffSize==0)
+    write('0');
 }
