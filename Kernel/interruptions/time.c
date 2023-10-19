@@ -10,9 +10,9 @@ void timer_handler() {
 	if(ticks %(5*18)==0){
 		//ncPrint(" [20 seconds have passed] ");
 		//ncNewline();
-		//scroll();
-		// Seed the random number generator with the current time
-		
+		//paint(0xFF00FF);
+		// scroll();
+		//  Seed the random number generator with the current time
 	}
 }
 

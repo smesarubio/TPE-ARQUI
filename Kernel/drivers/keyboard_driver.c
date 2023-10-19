@@ -1,6 +1,7 @@
 #include <lib.h>
 #include <naiveConsole.h>
 #include <videoDriver.h>
+#include <text_driver.h>
 #include <keyboard_driver.h>
 #include <stdint.h>
 
@@ -9,8 +10,8 @@
 #define RELEASE 2
 #define ERROR -1
 
-#define BUFF_LEN 30
-static int buffSize=0; //cantidad de elementos del buffer
+//#define BUFF_LEN 30
+//static int buffSize=0; //cantidad de elementos del buffer
 static int ridx=0; //posicion de escritura
 static int widx=0; //posicion de lectura
 
@@ -19,7 +20,7 @@ static int widx=0; //posicion de lectura
 #define CAPS_LOCK 0x3A
 #define CTRL 0x1D
 
-static char buffer[BUFF_LEN]={0};
+//static char buffer[BUFF_LEN]={0};
 
 static int shift = 0;
 static int ctrl = 0;
@@ -45,6 +46,7 @@ void keyboard_handler(){
 
     if(key == 0x39){ // space
         ncPrint(" ");
+        putInBuffer(' ');
         write(' ');
         // paint(0xd61c44);
         return;
@@ -52,6 +54,7 @@ void keyboard_handler(){
     if(ScanCodes[key] == '\b'){
         ncBackspace();
         printBackspace();
+        removeLastFromBuffer();
         return;
     }
     if(ScanCodes[key] == '\t'){
@@ -62,8 +65,9 @@ void keyboard_handler(){
     }
     if(ScanCodes[key] == '\n'){
         //printInScreen(buffer, buffSize);
-        printCoso();
         printNewLine();
+        printCoso();
+        resetBuffer();
         return;
     }
     if( key >= 0 && key <= 256 && ScanCodes[key] != 0 ){
@@ -83,10 +87,23 @@ void keyboard_handler(){
     return;
 }
 
+/* 
 void putInBuffer(char c){
     write('\'');
     buffer[buffSize] = c;
     buffSize= buffSize+1;
+}
+
+
+char removeCharFromBuffer(){
+    if(buffSize<=0)
+        return -1;
+    int c= buffer[ridx]; 
+    ridx=(ridx +1)%BUFF_LEN; //mas rapido que ir preguntando si el indice alcanzo el maximo, y de esta manera recorremos ciclicamente el buffer
+    if(buffSize!=0)
+    buffSize--;
+    return c;
+
 }
 
 char getKeyChar(){
@@ -104,19 +121,15 @@ char getKeyChar(){
     return c;
 }
 
-char removeCharFromBuffer(){
-    if(buffSize<=0)
-        return -1;
-    int c= buffer[ridx]; 
-    ridx=(ridx +1)%BUFF_LEN; //mas rapido que ir preguntando si el indice alcanzo el maximo, y de esta manera recorremos ciclicamente el buffer
-    if(buffSize!=0)
-    buffSize--;
-    return c;
-
-}
-
+*/
 
 void printCoso(){
-    if(buffSize==0)
-    write('0');
+    char *buf = getBuffer();
+    int bs = getBuffSize();
+    for (int i = 0; i < bs; i++)
+    {
+        write(buf[i]);
+    }
 }
+
+

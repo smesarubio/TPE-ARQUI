@@ -1,5 +1,6 @@
 /* sampleCodeModule.c */
 #include <shell.h>
+#include <libc.h>
 /* 
 char * v = (char*)0xB8000 + 79 * 2;
 

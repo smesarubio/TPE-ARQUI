@@ -17,6 +17,20 @@ void setFTC(t_color colour) {
     currentFTC = colour;
 }
 
+
+void waitForEnter(){
+    _syscall(SYS_WAIT_ID,1,'\n',0,0,0); //wait(1) for char '\n'
+    return;
+}
+
+char * getInput(){
+    return _syscall(SYS_READ_ID, 6, 0,0,0,0);
+}
+
+int getInputSize(){
+    return (int) _syscall(SYS_READ_ID, 7, 0, 0, 0, 0);
+}
+
 void setUserLength(char * user){
     int len = strlen(user) + strlen("  > ")-1;
     _syscall(SYS_READ_ID, 5, len,0,0,0);
@@ -486,3 +500,5 @@ int strcmp(char string1[], char string2[])
         return 1;
     return -1;
 }
+
+
