@@ -28,7 +28,7 @@ uint64_t sys_read(uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint32_
 		return getBuffSize();
 	}
 	if(rsi == 8){
-		return getLastFromBuffer();
+		return getChar();
 	}
 
 	//return getKeyChar();

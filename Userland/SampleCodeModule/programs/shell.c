@@ -60,13 +60,12 @@ void runShell(){
     int argc = 0;
     while (1)
     {
-        userPrint();
-        char c;
-        while ((c = readChar()) != '\n' )
+        char c=0;
+        while (c != '\n' )
         {
-            userInput[inputSize] = c;
-            inputSize++;
-            printf("tocaste enter");
+            userPrint();
+            c = readChar();
+            putChar(c);
         }
         /* argc = getCommandArgs(userInput, command, argv);
         if(argc == -1) {
