@@ -32,8 +32,8 @@ static char ScanCodes[256]={0, 0, '1', '2', '3', '4', '5', '6', '7', '8', '9', '
 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', '`', 0, '\\', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 0, 0 };
 
 char getChar(){
-    int key = getKey();
-    return getCharCode(key);
+    char c = getLastFromBuffer();
+    
 }
 
 char getCharCode(int key){
@@ -53,41 +53,42 @@ void keyboard_handler(){
     }
 
     if(key == 0x39){ // space
-        ncPrint(" ");
+        //ncPrint(" ");
         putInBuffer(' ');
-        write(' ');
+        //write(' ');
         // paint(0xd61c44);
         return;
     }
     if(ScanCodes[key] == '\b'){
-        ncBackspace();
-        printBackspace();
+        //ncBackspace();
+        //printBackspace();
         removeLastFromBuffer();
         return;
     }
     if(ScanCodes[key] == '\t'){
-        ncPrint("    ");
+        //ncPrint("    ");
         putInBuffer('\t');
-        printTab();
+        //printTab();
         return;
     }
     if(ScanCodes[key] == '\n'){
         //printInScreen(buffer, buffSize);
-        printNewLine();
+        //printNewLine();
         //printCoso();
-        resetBuffer();
+        putInBuffer('\n');
+        // resetBuffer();
         return;
     }
     if( key >= 0 && key <= 256 && ScanCodes[key] != 0 ){
         if (capsLockOn) {
-            ncPrintChar(ScanCodes[key] - ('a' - 'A'));
-            write(ScanCodes[key] - ('a' - 'A') );
+            //ncPrintChar(ScanCodes[key] - ('a' - 'A'));
+            //write(ScanCodes[key] - ('a' - 'A') );
             putInBuffer(ScanCodes[key]-('a'-'A'));
         }
         else
         {
-            ncPrintChar(ScanCodes[key]);
-            write(ScanCodes[key]);
+            //ncPrintChar(ScanCodes[key]);
+            //write(ScanCodes[key]);
             putInBuffer(ScanCodes[key]);
         }
         return;

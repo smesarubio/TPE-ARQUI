@@ -28,5 +28,8 @@ int getBuffSize(){
 }
 
 char getLastFromBuffer(){
-    return buff[buff_size - 1];
+    if(buff_size <=0){
+        return -1;
+    }
+    return buff[--buff_size];
 }
