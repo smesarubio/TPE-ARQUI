@@ -61,11 +61,11 @@ void runShell(){
     while (1)
     {
         char c=0;
+        userPrint();
         while (c != '\n' )
         {
-            userPrint();
             c = readChar();
-            putChar(c);
+            printf("%c",c);
         }
         /* argc = getCommandArgs(userInput, command, argv);
         if(argc == -1) {
