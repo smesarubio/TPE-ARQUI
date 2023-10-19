@@ -13,4 +13,6 @@ void removeLastFromBuffer();
 
 void putInBuffer(char c);
 
+char getLastFromBuffer();
+
 #endif

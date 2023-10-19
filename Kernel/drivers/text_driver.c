@@ -26,3 +26,7 @@ void resetBuffer(){
 int getBuffSize(){
     return buff_size;
 }
+
+char getLastFromBuffer(){
+    return buff[buff_size - 1];
+}

@@ -17,6 +17,9 @@ void setFTC(t_color colour) {
     currentFTC = colour;
 }
 
+char readChar(){
+    return _syscall(SYS_READ_ID, 8, 0, 0, 0, 0);
+}
 
 void waitForEnter(){
     _syscall(SYS_WAIT_ID,1,'\n',0,0,0); //wait(1) for char '\n'

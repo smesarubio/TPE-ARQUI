@@ -54,19 +54,25 @@ void welcomeMessage(){
  
 void runShell(){
     char command[BUFFER_SIZE] = {0};
+    char userInput[BUFFER_SIZE] = {0};
+    int inputSize = 0;
     char argv[MAX_ARGUMENTS][BUFFER_SIZE];
     int argc = 0;
     while (1)
     {
         userPrint();
-        //waitForEnter();
-        char *userInput = getInput();
-        int InputLen = getInputSize();
-        argc = getCommandArgs(userInput, command, argv);
+        char c;
+        while ((c = readChar()) != '\n' )
+        {
+            userInput[inputSize] = c;
+            inputSize++;
+            printf("tocaste enter");
+        }
+        /* argc = getCommandArgs(userInput, command, argv);
         if(argc == -1) {
             printf("\nIngreso argumentos de mas.\nLa maxima cantidad de argumentos permitida es: %d.\n\n", MAX_ARGUMENTS);
-        }
-        return;
+        } */
+
         // scanf("%s", userInput);
     }
 }

@@ -6,4 +6,7 @@ void keyboard_handler();
 char getChar();
 char removeCharFromBuffer();
 char getKeyChar();
+char getCharCode();
+char getChar();
+
 #endif /* KEYBOARD_DRIVER_H */
