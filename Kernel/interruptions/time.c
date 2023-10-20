@@ -16,16 +16,6 @@ void timer_handler() {
 	}
 }
 
-void timer_wait(int tickazos)
-{
-    unsigned int eticks;
- 
-    eticks = ticks + tickazos;
-    while(tickazos < eticks) 
-    {
-        __asm__ __volatile__ ("sti\nhlt\ncli");
-    }
-}
 
 
 

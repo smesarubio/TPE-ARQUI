@@ -3,8 +3,9 @@
 #include <syscalls.h>
 #include <colors.h>
 #include <fonts.h>
+#include <time.h>
 
-
+extern int get_seconds();
 struct vbe_mode_info_structure
 {
 	uint16_t attributes;		// deprecated, only bit 7 should be of interest to you, and it indicates the mode supports a linear frame buffer.
@@ -119,8 +120,22 @@ void paint(uint32_t color){
 }
 
 void clear(){
-	load_video();
+	screen->currentX = 2;
+    screen->offset=0;
+    screen->currentY = 28;
+	paint(BACKGROUND);
 }
+
+void paintTransition(){
+	for (unsigned int i = 0; i < HEIGHT; i++)
+	{
+		for (unsigned int j = 0; j < WIDTH; j++)
+		{
+			putPixel(BACKGROUND, j, i);
+		}
+		}
+}
+
 
 void cursor() {
     int changeDetected = 0;
