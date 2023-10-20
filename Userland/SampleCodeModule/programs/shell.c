@@ -1,9 +1,10 @@
 #include <shell.h>
 #include <libc.h>
+#include <commands.h>
 
 static int  startedShell = 0;
 static char username[] = "Sanchu";
-static char commandList[][30] = {"help","div" };
+static char commandList[][30] = {"help","divzero" };
 void (*commandFuncts[])() = {help};
 
 void startShell()
@@ -18,9 +19,7 @@ void userPrint(){
     printf("\n %s > ", username);
 }
 
-void help(){
-    printf("\n que pedis ayuda pete\n\n");
-}
+
 
 
 static int getCommandArgs(char* userInput, char* command, char argv[MAX_ARGUMENTS][BUFFER_SIZE]) {
@@ -128,6 +127,10 @@ void logo(){
     wipeScreen();
 }
 
+void cnf(){
+    printf("\ncommand not found\n\n");
+}
+
 void runShell(){
     while (1)
     {
@@ -151,7 +154,7 @@ void runShell(){
             putChar(c);
         }
         if(inputSize==0){
-            printf("\npone algun comando DOWN\n\n");
+            cnf();
         }else{
             argc = getCommandArgs(userInput, command, argv);
             if(argc == -1) {
