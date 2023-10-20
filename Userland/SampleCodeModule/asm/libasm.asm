@@ -26,6 +26,7 @@ section .text
 _syscall:
     push rbp
     mov rbp, rsp
+	;mov r13, 9
 	pushCalleeState
 
     int 80h

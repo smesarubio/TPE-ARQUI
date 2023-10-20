@@ -1,7 +1,7 @@
 #include <syscallDispatcher.h>
 #include <syscalls.h>
 #include <stdint.h>
-uint64_t syscall_selector(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint32_t r9){
+uint64_t syscall_selector(uint64_t irq,uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint32_t r9){
     switch (rdi)
     {
     case SYS_WRITE_ID:
@@ -17,7 +17,7 @@ uint64_t syscall_selector(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx
         sys_clear(rsi, rdx, rcx, r8, r9);
         break;
     case SYS_INFOREG_ID:
-        return sys_inforeg(&rsi);
+        return sys_inforeg(&irq);
     default:
         break;
     }

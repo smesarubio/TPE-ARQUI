@@ -23,7 +23,7 @@ void registersinfo(){
     printf("\nRegistros: \n");
         
     for(int i = 0 ; i < REGISTERS_SIZE ; i++){
-        printf(" %s\t%d\n",registersNames[i],regs[i]);
+        printf(" %s:\t\t%x\n",registersNames[i],regs[i]);
     }
 
 }
