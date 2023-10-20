@@ -8,6 +8,8 @@
 void help();
 void welcomeMessage();
 void startShell();
+void logo();
+char readChar();
 void runShell();
 
 #endif

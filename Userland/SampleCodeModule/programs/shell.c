@@ -4,8 +4,8 @@
 
 static int  startedShell = 0;
 static char username[] = "Sanchu";
-static char commandList[][30] = {"help","divzero",0};
-void (*commandFuncts[])() = {help, divzero};
+static char commandList[][30] = {"help","divzero","registersinfo",0};
+void (*commandFuncts[])() = {help,divzero,registersinfo};
 
 void startShell()
 {
@@ -18,8 +18,6 @@ void startShell()
 void userPrint(){
     printf("\n %s > ", username);
 }
-
-
 
 
 static int getCommandArgs(char* userInput, char* command, char argv[MAX_ARGUMENTS][BUFFER_SIZE]) {

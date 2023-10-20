@@ -1,5 +1,6 @@
 #include <syscalls.h>
 #include <colors.h>
+#include <videoDriver.h>
 
 #define ZERO_EXCEPTION_ID 0
 
