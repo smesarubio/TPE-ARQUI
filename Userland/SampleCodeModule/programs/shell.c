@@ -4,8 +4,8 @@
 
 static int  startedShell = 0;
 static char username[] = "Sanchu";
-static char commandList[][30] = {"help","divzero" };
-void (*commandFuncts[])() = {help};
+static char commandList[][30] = {"help","divzero",0};
+void (*commandFuncts[])() = {help, divzero};
 
 void startShell()
 {
@@ -62,6 +62,52 @@ void welcomeMessage(){
         printf("\n          +-+-+-+-+-+ +-+-+\n\n\n"); */
 }
  
+
+void cnf(){
+    printf("\ncommand not found\n\n");
+}
+
+void runShell(){
+    while (1)
+    {
+        char command[BUFFER_SIZE] = {0};
+        char userInput[BUFFER_SIZE] = {0};
+        char argv[MAX_ARGUMENTS][BUFFER_SIZE];
+        int argc = 0;
+        int inputSize = 0;
+        char c=0;
+        userPrint();
+        while (c != '\n' )
+        {
+            c = readChar();
+            if(c!='\n' && c!=0){
+                if(c == '\b'){
+                    inputSize--;
+                }else{
+                    userInput[inputSize++] = c;
+                }
+            }
+            putChar(c);
+        }
+        if(inputSize==0){
+            cnf();
+        }else{
+            argc = getCommandArgs(userInput, command, argv);
+            if(argc == -1) {
+                printf("\nIngreso argumentos de mas.\nLa maxima cantidad de argumentos permitida es: %d.\n\n", MAX_ARGUMENTS);
+            }
+            for (int i = 0; commandList[i][0]!=0; i++)
+            {
+                if(strcmp(command,commandList[i])==0){
+                    commandFuncts[i]();
+                }
+            }
+        }
+
+    }
+}
+
+
 void logo(){
     printf("\n");
     printf("                                                                      :\n");
@@ -126,49 +172,3 @@ void logo(){
     }
     wipeScreen();
 }
-
-void cnf(){
-    printf("\ncommand not found\n\n");
-}
-
-void runShell(){
-    while (1)
-    {
-        char command[BUFFER_SIZE] = {0};
-        char userInput[BUFFER_SIZE] = {0};
-        char argv[MAX_ARGUMENTS][BUFFER_SIZE];
-        int argc = 0;
-        int inputSize = 0;
-        char c=0;
-        userPrint();
-        while (c != '\n' )
-        {
-            c = readChar();
-            if(c!='\n' && c!=0){
-                if(c == '\b'){
-                    inputSize--;
-                }else{
-                    userInput[inputSize++] = c;
-                }
-            }
-            putChar(c);
-        }
-        if(inputSize==0){
-            cnf();
-        }else{
-            argc = getCommandArgs(userInput, command, argv);
-            if(argc == -1) {
-                printf("\nIngreso argumentos de mas.\nLa maxima cantidad de argumentos permitida es: %d.\n\n", MAX_ARGUMENTS);
-            }
-            for (int i = 0; i < 1; i++)
-            {
-                if(strcmp(command,commandList[i])==0){
-                    commandFuncts[i]();
-                }
-            }
-        }
-
-    }
-}
-
-

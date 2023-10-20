@@ -130,13 +130,4 @@ char getKeyChar(){
 
 */
 
-void printCoso(){
-    char *buf = getBuffer();
-    int bs = getBuffSize();
-    for (int i = 0; i < bs; i++)
-    {
-        write(buf[i]);
-    }
-}
-
 

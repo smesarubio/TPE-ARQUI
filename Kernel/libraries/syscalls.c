@@ -8,7 +8,7 @@ void sys_write(char * str, uint8_t len, t_color bgColor, t_color ftColor, int us
     if (str == 0 ||  len <= 0 || bgColor < 0 || ftColor < 0) 
         return ;
 	for (int i = 0; str[i] != 0 && i < len; i++) 
-	write(str[i]);     
+	write(str[i], bgColor, ftColor);     
 	
 }   
 

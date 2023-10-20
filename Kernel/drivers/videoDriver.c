@@ -60,8 +60,8 @@ VBEInfoPtr VBE_mode_info = (VBEInfoPtr)0x0000000000005C00;
 
 typedef struct
 {
-    uint32_t defaultBGColour;
-    uint32_t defaultFontColour;
+    uint8_t defaultBGColour;
+    uint8_t defaultFontColour;
     int currentX;
     int currentY;
     uint32_t offset;
@@ -95,7 +95,7 @@ void load_video(){
     screen->currentY = 28;
 	screen->width = WIDTH;
     screen->height = HEIGHT;
-	paint(screen->defaultBGColour);
+	paint(BACKGROUND);
 	//welcomeMessage();
 	/*
 	printCharAt('S', 1, 28);
@@ -155,18 +155,18 @@ void stopCursor() {
 }
 
 void writeStatic(char c){
-	printCharAt(c, screen->currentX, screen->currentY);
+	printCharAt(c, screen->currentX, screen->currentY, BACKGROUND, FOREGROUND);
 }
 
 
 void printInScreen(char * c, int len){
 	for (int i = 0; c[i] != 0 && i<len; i++){
-		write(c[i]);
+		write(c[i], BACKGROUND, FOREGROUND);
 	}
 }
 
 
-void write(char c){
+void write(char c, t_color bgColor, t_color foreColor){
 	if(c == 10){
 		printNewLine();
 		return;
@@ -179,7 +179,7 @@ void write(char c){
 		printTab();
 		return;
 	}
-	printCharAt(c, screen->currentX, screen->currentY);
+	printCharAt(c, screen->currentX, screen->currentY, BACKGROUND, FOREGROUND);
 	screen->currentX += 8;
 	if (screen->currentX>= screen->width){
 		screen->currentX = 2;
@@ -195,7 +195,7 @@ void hola(){
 void printTab(){
 	for (int i = 0; i < 8; i++)
 	{
-		write(' ');
+		write(' ', BACKGROUND, FOREGROUND);
 	}
 }
 
@@ -210,12 +210,12 @@ void printBackspace(){
 	if(screen->currentX<=screen->userLen*8){
 		screen->currentX += 8;
 	}else{
-		printCharAt(0, screen->currentX, screen->currentY);
+		printCharAt(0, screen->currentX, screen->currentY,BACKGROUND,FOREGROUND);
 	}
 	return;
 }
 
-void printCharAt(char c, int x0, int y0){
+void printCharAt(char c, int x0, int y0, t_color bgColor, t_color ForeColor){
 	uint8_t *  s = getCharMap(c);
 	int h = 16;
 	for (int i = 0; i < h; i++)
@@ -224,9 +224,9 @@ void printCharAt(char c, int x0, int y0){
 		{
 			int bit = (s[i] >> j) & 1;
 			if(bit == 1){
-				putPixel(FOREGROUND, x0, y0);
+				putPixel(ForeColor, x0, y0);
 			}else if(bit == 0){
-				putPixel(BACKGROUND, x0, y0);
+				putPixel(bgColor, x0, y0);
 			}
 			x0++;
 		}
