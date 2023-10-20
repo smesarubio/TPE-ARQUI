@@ -129,11 +129,10 @@ void clear(){
 void paintTransition(){
 	for (unsigned int i = 0; i < HEIGHT; i++)
 	{
-		for (unsigned int j = 0; j < WIDTH; j++)
-		{
+		for (unsigned int j = 0; j < WIDTH; j++){
 			putPixel(BACKGROUND, j, i);
 		}
-		}
+	}
 }
 
 

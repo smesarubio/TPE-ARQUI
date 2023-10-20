@@ -3,6 +3,8 @@
 
 static int  startedShell = 0;
 static char username[] = "Sanchu";
+static char commandList[][30] = {"help","div" };
+void (*commandFuncts[])() = {help};
 
 void startShell()
 {
@@ -16,6 +18,9 @@ void userPrint(){
     printf("\n %s > ", username);
 }
 
+void help(){
+    printf("\n que pedis ayuda pete\n\n");
+}
 
 
 static int getCommandArgs(char* userInput, char* command, char argv[MAX_ARGUMENTS][BUFFER_SIZE]) {
@@ -152,8 +157,11 @@ void runShell(){
             if(argc == -1) {
                 printf("\nIngreso argumentos de mas.\nLa maxima cantidad de argumentos permitida es: %d.\n\n", MAX_ARGUMENTS);
             }
-            if(strcmp(command,"help")==0){
-                printf("\n que pedis ayuda pete\n\n");
+            for (int i = 0; i < 1; i++)
+            {
+                if(strcmp(command,commandList[i])==0){
+                    commandFuncts[i]();
+                }
             }
         }
 

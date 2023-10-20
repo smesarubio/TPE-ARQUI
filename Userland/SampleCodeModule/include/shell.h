@@ -5,6 +5,7 @@
 #define BUFFER_SIZE 100
 #define MAX_ARGUMENTS 3
 
+void help();
 void welcomeMessage();
 void startShell();
 void runShell();
