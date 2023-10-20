@@ -65,7 +65,7 @@ void runShell(){
         while (c != '\n' )
         {
             c = readChar();
-            printf("%c",c);
+            putChar(c);
         }
         /* argc = getCommandArgs(userInput, command, argv);
         if(argc == -1) {

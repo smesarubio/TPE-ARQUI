@@ -153,6 +153,10 @@ void write(char c){
 		printNewLine();
 		return;
 	}
+	if(c == '\b'){
+		printBackspace();
+		return;
+	}
 
 	printCharAt(c, screen->currentX, screen->currentY);
 	screen->currentX += 8;

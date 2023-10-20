@@ -60,6 +60,7 @@ void keyboard_handler(){
         //ncBackspace();
         //printBackspace();
         removeLastFromBuffer();
+        putInBuffer('\b');
         return;
     }
     if(ScanCodes[key] == '\t'){
