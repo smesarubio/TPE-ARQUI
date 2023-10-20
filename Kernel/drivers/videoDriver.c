@@ -118,6 +118,10 @@ void paint(uint32_t color){
 
 }
 
+void clear(){
+	load_video();
+}
+
 void cursor() {
     int changeDetected = 0;
     if(!changeDetected && ticks_elapsed() % 9  ==0){
@@ -157,7 +161,10 @@ void write(char c){
 		printBackspace();
 		return;
 	}
-
+	if(c == '\t'){
+		printTab();
+		return;
+	}
 	printCharAt(c, screen->currentX, screen->currentY);
 	screen->currentX += 8;
 	if (screen->currentX>= screen->width){

@@ -34,4 +34,7 @@ char *getInput();
 void waitForEnter();
 
 int getInputSize();
+
+void wipeScreen();
+
 #endif

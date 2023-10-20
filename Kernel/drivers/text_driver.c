@@ -26,7 +26,7 @@ void putInBuffer(char c){
 void removeLastFromBuffer(){
     buff_size--;
     if(buff_size<=0){
-        buff_size == 0;
+        buff_size = 0;
     }
 }
 

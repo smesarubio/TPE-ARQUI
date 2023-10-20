@@ -12,6 +12,9 @@ void syscall_selector(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx, ui
     case SYS_WAIT_ID:
         sys_wait(rsi, rdx, rcx, r8, r9);
         break;
+    case SYS_CLEAR_ID:
+        sys_clear(rsi, rdx, rcx, r8, r9);
+        break;
     default:
         break;
     }

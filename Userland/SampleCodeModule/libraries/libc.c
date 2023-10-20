@@ -260,6 +260,10 @@ int strlen(const char *s){
     return i;
 }
 
+void wipeScreen(){
+    _syscall(SYS_CLEAR_ID, 0, 0, 0, 0,0);
+}
+
 char getChar(){
     return _syscall(SYS_READ_ID, 0, 0, 0, 0, 0);
 }

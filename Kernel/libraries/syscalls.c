@@ -12,6 +12,10 @@ void sys_write(char * str, uint8_t len, t_color bgColor, t_color ftColor, int us
 	
 }   
 
+void sys_clear(uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint32_t r9){
+	clear();
+}
+
 void sys_wait(uint64_t rsi, char rdx, uint64_t rcx, uint64_t r8, uint32_t r9){
 	if(rsi == 1){//wait for char
 		char c;

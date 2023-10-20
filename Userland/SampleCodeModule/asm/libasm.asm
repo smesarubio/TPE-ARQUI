@@ -8,8 +8,6 @@ section .text
 
 %macro pushCalleeState 0
 	push rbx
-    push rsp
-    push rbp
     push r12
     push r13
     push r14
@@ -21,8 +19,6 @@ section .text
 	pop r14
 	pop r13
 	pop r12
-	pop rbp
-    pop rsp
 	pop rbx
 %endmacro
 
