@@ -4,7 +4,7 @@
 
 static int  startedShell = 0;
 static char username[] = "Sanchu";
-static char commandList[][30] = {"help","divzero","registersinfo",0};
+static char commandList[][30] = {"help","divzero","inforeg",0};
 void (*commandFuncts[])() = {help,divzero,registersinfo};
 
 void startShell()

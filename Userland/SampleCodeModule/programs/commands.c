@@ -5,7 +5,7 @@
 
 void help(){
     printf("\n Los programas disponibles son:\n");
-    printf("\n divzero\n registersinfo\n");
+    printf("\n divzero\n inforeg\n");
 }
 
 void divzero(){
