@@ -90,6 +90,7 @@ void runShell(){
         if(inputSize==0){
             cnf();
         }else{
+            int found = 0;
             argc = getCommandArgs(userInput, command, argv);
             if(argc == -1) {
                 printf("\nIngreso argumentos de mas.\nLa maxima cantidad de argumentos permitida es: %d.\n\n", MAX_ARGUMENTS);
@@ -98,10 +99,13 @@ void runShell(){
             {
                 if(strcmp(command,commandList[i])==0){
                     commandFuncts[i]();
+                    found = 1;
                 }
             }
+            if(found == 0){
+                cnf();
+            }
         }
-
     }
 }
 
