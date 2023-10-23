@@ -5,7 +5,7 @@
 #include <text_driver.h>
 
 static uint64_t registers[16] = {0};
-void updateRegisters(uint64_t *rsp);
+
 
 void sys_write(char *str, uint8_t len, t_color bgColor, t_color ftColor, int usrLen)
 {
@@ -46,8 +46,7 @@ uint64_t sys_read(uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint32_
 	return 0;
 }
 
-uint64_t sys_inforeg(uint64_t * rsp){
-	updateRegisters(rsp);
+uint64_t sys_inforeg(){
 	return registers;
 }
 

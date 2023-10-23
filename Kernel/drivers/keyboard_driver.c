@@ -3,6 +3,7 @@
 #include <videoDriver.h>
 #include <text_driver.h>
 #include <keyboard_driver.h>
+#include <syscalls.h>
 #include <stdint.h>
 
 
@@ -30,104 +31,71 @@ static char ScanCodes[256]={0, 0, '1', '2', '3', '4', '5', '6', '7', '8', '9', '
 '\b', '\t', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\n', 0, 'a', 's', 
 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', '`', 0, '\\', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 0, 0 };
 
-
+int getOnAction(int key){
+    if(key >= 0x01 && key <= 0x3A) { //teclado
+        return PRESS;
+    }
+    else if (key >= 0x81 && key <= 0xBA) {
+        return RELEASE;
+    }
+    return ERROR;
+}
 
 char getCharCode(int key){
     return ScanCodes[key];
 }
 
-void keyboard_handler(){
+void keyboard_handler(uint64_t rsp){
     int key = getKey();
     static int capsLockOn = 0;
-
-    if (key == 0x3A) { // Caps Lock press
-        capsLockOn = 1 - capsLockOn; // Toggle the Caps Lock status
-    }
-
-    if (key == 0xBA) { // Caps Lock release
-        // Don't change the Caps Lock status here, as it's typically only changed on press.
-    }
-
-    if(key == 0x39){ // space
-        //ncPrint(" ");
-        putInBuffer(' ');
-        //write(' ');
-        // paint(0xd61c44);
-        return;
-    }
-    if(ScanCodes[key] == '\b'){
-        //ncBackspace();
-        //printBackspace();
-        removeLastFromBuffer();
-        putInBuffer('\b');
-        return;
-    }
-    if(ScanCodes[key] == '\t'){
-        //ncPrint("    ");
-        putInBuffer('\t');
-        //printTab();
-        return;
-    }
-    if(ScanCodes[key] == '\n'){
-        //printInScreen(buffer, buffSize);
-        //printNewLine();
-        //printCoso();
-        putInBuffer('\n');
-        // resetBuffer();
-        return;
-    }
-    if( key >= 0 && key <= 256 && ScanCodes[key] != 0 ){
-        if (capsLockOn) {
-            //ncPrintChar(ScanCodes[key] - ('a' - 'A'));
-            //write(ScanCodes[key] - ('a' - 'A') );
-            putInBuffer(ScanCodes[key]-('a'-'A'));
+    int current = getOnAction(key);
+    if (current == PRESS){
+        if (key == CTRL){
+            ctrl = 1;
+        }else if (key == LEFT_SHIFT || key == RIGHT_SHIFT){
+            shift = 1;
+        }else if (key == CAPS_LOCK) { // Caps Lock press
+            capsLockOn = 1 - capsLockOn; // Toggle the Caps Lock status
         }
-        else
-        {
-            //ncPrintChar(ScanCodes[key]);
-            //write(ScanCodes[key]);
-            putInBuffer(ScanCodes[key]);
+        else {
+            if(key == 0x39){ // space
+                putInBuffer(' ');
+                return;
+            }
+            if (ctrl && ScanCodes[key] == 'r'){
+                updateRegisters((uint64_t *) rsp);
+            }
+            if(ScanCodes[key] == '\b'){
+                removeLastFromBuffer();
+                putInBuffer('\b');
+                return;
+            }
+            if(ScanCodes[key] == '\t'){
+                putInBuffer('\t');
+                return;
+            }
+            if(ScanCodes[key] == '\n'){
+                putInBuffer('\n');
+                return;
+            }
+            if( key >= 0 && key <= 256 && ScanCodes[key] != 0 ){
+                if (capsLockOn || shift) {
+                    putInBuffer(ScanCodes[key]-('a'-'A'));
+                }
+                else {
+                    putInBuffer(ScanCodes[key]);
+                }
+                return;
+            }
+        
         }
-        return;
+    } else if (current == RELEASE){
+        if (key == LEFT_SHIFT + 0x80 || key == RIGHT_SHIFT + 0x80){
+            shift = 0;
+        }
+        else if (key != CTRL){
+            ctrl = 0;
+        }
     }
-    
-
     return;
 }
-
-/* 
-void putInBuffer(char c){
-    write('\'');
-    buffer[buffSize] = c;
-    buffSize= buffSize+1;
-}
-
-
-char removeCharFromBuffer(){
-    if(buffSize<=0)
-        return -1;
-    int c= buffer[ridx]; 
-    ridx=(ridx +1)%BUFF_LEN; //mas rapido que ir preguntando si el indice alcanzo el maximo, y de esta manera recorremos ciclicamente el buffer
-    if(buffSize!=0)
-    buffSize--;
-    return c;
-
-}
-
-char getKeyChar(){
-    char c=0;
-    c=removeCharFromBuffer();
-    if(c=='\b'){
-        removeCharFromBuffer();
-    }
-    while(c==-1){
-        cursor();
-        _hlt();
-         c=removeCharFromBuffer();
-    }
-    stopCursor();
-    return c;
-}
-
-*/
-
