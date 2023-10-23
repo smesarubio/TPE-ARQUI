@@ -78,7 +78,7 @@ void keyboard_handler(uint64_t rsp){
                 putInBuffer('\n');
                 return;
             }
-            if( key >= 0 && key <= 256 && ScanCodes[key] != 0 ){
+            if( key >= 0 && key <= 256 && ScanCodes[key] != 0 ){ //minuscula o mayuscula
                 if (capsLockOn || shift) {
                     putInBuffer(ScanCodes[key]-('a'-'A'));
                 }

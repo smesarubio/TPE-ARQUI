@@ -14,7 +14,6 @@ void irqDispatcher(uint64_t irq, uint64_t rdi, uint64_t rsi, uint64_t rdx, uint6
 			int_20();
 			break;
 		case 1:
-			//ncPrint("Entra");
 			int_21(rsi);
 			break;
 		case 0x60:
