@@ -143,6 +143,17 @@ void paint(uint32_t color){
 
 }
 
+void screenScroll(){
+	int scrollSize = 20;
+	for (int i = scrollSize; i < sb_dim; i++){
+		screenBuffer[i - scrollSize] = screenBuffer[i];
+	}
+	sb_dim -= scrollSize;
+	rewrite();
+}
+
+
+
 
 void clear(){
 	screen->currentX = 2;
@@ -271,7 +282,7 @@ void printBackspace(){
 
 
 void printCharAt(char c, int x0, int y0, t_color bgColor, t_color ForeColor){
-		uint8_t *  s = getCharMap(c);
+	uint8_t *  s = getCharMap(c);
 	int h = 16;
 	for (int i = 0; i < h; i++)
 	{
@@ -287,6 +298,9 @@ void printCharAt(char c, int x0, int y0, t_color bgColor, t_color ForeColor){
 		}
 		y0+= font_size;
 		x0 -= font_size*8;
+	}
+	if(y0>HEIGHT){
+		screenScroll();
 	}
 }
 
