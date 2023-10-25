@@ -2,7 +2,7 @@
 #define KEYBOARD_DRIVER_H
 
 extern int getKey();
-void keyboard_handler(uint64_t rsp);
+void keyboard_handler(uint64_t * rsp);
 char getChar();
 char removeCharFromBuffer();
 char getKeyChar();
