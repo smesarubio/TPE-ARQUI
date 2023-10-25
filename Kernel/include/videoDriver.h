@@ -16,6 +16,7 @@ void printInScreen(char *c, int len);
 void font();
 void writeStatic(char c);
 void cursor();
+void setFontSize(int i);
 void stopCursor();
 void hola();
 #endif

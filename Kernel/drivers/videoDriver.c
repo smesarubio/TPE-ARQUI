@@ -55,6 +55,7 @@ unsigned int DEFAULT_FONT_COLOUR = FOREGROUND;
 unsigned int USER_LENGHT=0;//14
 unsigned int lineCounter=0;
 
+static int font_size = 1;
 
 VBEInfoPtr VBE_mode_info = (VBEInfoPtr)0x0000000000005C00;
 
@@ -84,6 +85,13 @@ void putPixel(uint32_t hexColor, uint64_t x, uint64_t y){
 
 void setVideoUserLen(int len){
 	screen->userLen = len;
+}
+
+void setFontSize(int i){
+	font_size += i;
+	if(font_size<1){
+		font_size = 1;
+	}
 }
 
 void load_video(){
@@ -180,10 +188,10 @@ void write(char c, t_color bgColor, t_color foreColor){
 		return;
 	}
 	printCharAt(c, screen->currentX, screen->currentY, BACKGROUND, FOREGROUND);
-	screen->currentX += 8;
+	screen->currentX += 8*font_size;
 	if (screen->currentX>= screen->width){
 		screen->currentX = 2;
-		screen->currentY += 16;
+		screen->currentY += 16*font_size;
 	}
 }
 
@@ -193,29 +201,30 @@ void hola(){
 
 
 void printTab(){
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 8*font_size; i++)
 	{
 		write(' ', BACKGROUND, FOREGROUND);
 	}
 }
 
 void printNewLine(){
-	screen->currentY += 16;
+	screen->currentY += 16*font_size;
 	screen->currentX = 0;
 }
 
 void printBackspace(){
-	screen->currentX -= 8;
+	screen->currentX -= 8*font_size;
 	//printCharAt(0, screen->currentX+1, screen->currentY+1);
-	if(screen->currentX<=screen->userLen*8){
-		screen->currentX += 8;
+	if(screen->currentX<=screen->userLen*8*font_size){
+		screen->currentX += 8*font_size;
 	}else{
 		printCharAt(0, screen->currentX, screen->currentY,BACKGROUND,FOREGROUND);
 	}
 	return;
 }
 
-void printCharAt(char c, int x0, int y0, t_color bgColor, t_color ForeColor){
+
+/* void printCharAt(char c, int x0, int y0, t_color bgColor, t_color ForeColor){
 	uint8_t *  s = getCharMap(c);
 	int h = 16;
 	for (int i = 0; i < h; i++)
@@ -234,3 +243,36 @@ void printCharAt(char c, int x0, int y0, t_color bgColor, t_color ForeColor){
 		x0 -= 8;
 	}
 }
+ */
+
+
+void printCharAt(char c, int x0, int y0, t_color bgColor, t_color ForeColor){
+		uint8_t *  s = getCharMap(c);
+	int h = 16;
+	for (int i = 0; i < h; i++)
+	{
+		for (int j = 7; j >= 0; j--)
+		{
+			int bit = (s[i] >> j) & 1;
+			if(bit == 1){
+				drawSquare(font_size, x0, y0, ForeColor);
+			}else if(bit == 0){
+				drawSquare(font_size, x0, y0, bgColor);
+			}
+			x0 += font_size;
+		}
+		y0+= font_size;
+		x0 -= font_size*8;
+	}
+}
+
+void drawSquare(int size, int x0, int y0 , t_color color){
+	for (int i = x0; i < x0+size; i++)
+	{
+		for (int j = y0; j < y0+ size; j++){
+			putPixel(color, i, j);
+		}
+	}
+	
+}
+
