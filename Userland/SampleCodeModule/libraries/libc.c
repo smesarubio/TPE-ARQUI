@@ -540,4 +540,6 @@ int strcmp(char string1[], char string2[])
     return -1;
 }
 
-
+void clearSc(){
+    _syscall(SYS_CLEAR_ID, 0, 0, 0, 0, 0);
+}

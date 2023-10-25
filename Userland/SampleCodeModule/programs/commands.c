@@ -7,8 +7,8 @@
 #define REGISTERS_SIZE 19
 
 void help(){
-    printf("\n Los programas disponibles son:\n");
-    printf("\n divzero\n inforeg\n");
+    printf("\n Available commands:\n");
+    printf("\nhelp\ndivzero\ninforeg\nclear");
 }
 
 void divzero(){
@@ -26,4 +26,8 @@ void registersinfo(){
         printf(" %s:\t%x\n",registersNames[i], regs[i]);
     }
 
+}
+
+void clearScreen(){
+    clearSc();
 }

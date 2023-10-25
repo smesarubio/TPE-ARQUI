@@ -37,4 +37,6 @@ int getInputSize();
 
 void wipeScreen();
 
+void clearSc();
+
 #endif
