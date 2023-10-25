@@ -75,6 +75,9 @@ typedef struct
 
 t_screen * screen;
 
+char screenBuffer[5000];
+int sb_dim = 0;
+
 void putPixel(uint32_t hexColor, uint64_t x, uint64_t y){
     uint8_t *framebuffer = (uint8_t *) VBE_mode_info->framebuffer;
     uint64_t offset = (x * ((VBE_mode_info->bpp)/8)) + (y * VBE_mode_info->pitch);
@@ -91,6 +94,19 @@ void setFontSize(int i){
 	font_size += i;
 	if(font_size<1){
 		font_size = 1;
+	}
+	rewrite();
+}
+
+void rewrite(){
+	paint(BACKGROUND);
+	screen->currentX = 0;
+	screen->currentY = 0;
+	int aux = sb_dim;
+	sb_dim = 0;
+	for (int i = 0; i < aux; i++)
+	{
+		write(screenBuffer[i], BACKGROUND,FOREGROUND);
 	}
 }
 
@@ -127,11 +143,13 @@ void paint(uint32_t color){
 
 }
 
+
 void clear(){
 	screen->currentX = 2;
     screen->offset=0;
     screen->currentY = 28;
 	paint(BACKGROUND);
+	sb_dim = 0;
 }
 
 void paintTransition(){
@@ -175,12 +193,14 @@ void printInScreen(char * c, int len){
 
 
 void write(char c, t_color bgColor, t_color foreColor){
-	if(c == 10){
-		printNewLine();
-		return;
-	}
 	if(c == '\b'){
 		printBackspace();
+		return;
+	}
+	screenBuffer[sb_dim++] = c;
+	if (c == 10)
+	{
+		printNewLine();
 		return;
 	}
 	if(c == '\t'){
@@ -215,9 +235,13 @@ void printNewLine(){
 void printBackspace(){
 	screen->currentX -= 8*font_size;
 	//printCharAt(0, screen->currentX+1, screen->currentY+1);
-	if(screen->currentX<=screen->userLen*8*font_size){
+	sb_dim--;
+	if (screen->currentX <= screen->userLen * 8 * font_size)
+	{
 		screen->currentX += 8*font_size;
-	}else{
+	}
+	else
+	{
 		printCharAt(0, screen->currentX, screen->currentY,BACKGROUND,FOREGROUND);
 	}
 	return;
