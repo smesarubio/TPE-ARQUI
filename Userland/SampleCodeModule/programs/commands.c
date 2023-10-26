@@ -9,7 +9,7 @@
 
 void help(){
     printf("\n Available commands:\n");
-    printf("\nhelp\ndivzero\ninforeg\nclear");
+    printf("\nhelp\ndivzero\ninforeg\nclear\nclock");
 }
 
 void divzero(){
@@ -37,8 +37,35 @@ void  rtclock(){
     uint64_t date = getTime(DAYS);
     uint64_t month = getTime(MONTH);
     uint64_t year = getTime(YEAR);
-    uint64_t hour = getTime(HOURS);
+    uint64_t hour = getTime(HOURS + TIME_ZONE);
     uint64_t minutes = getTime(MINUTES);
     uint64_t seconds = getTime(SECONDS);
-    printf("The current date and time is: %s %s",dateFormat(date, month, year), timeFormat(hour, minutes, seconds));
+    printf("The current date and time is:");
+    dateFormat(date, month, year);
+    timeFormat(hour, minutes, seconds);
+}
+
+//formato de la hora
+void timeFormat(uint8_t h, uint8_t min, uint8_t sec){
+    char rta[7];
+    rta[2] = rta[5] = ':';
+    rta[0] = (h / 10) % 10 + '0';
+    rta[1] = h % 10 + '0';
+    rta[3] = (min / 10) % 10 + '0';
+    rta[4] = min % 10 + '0';
+    rta[6] = (sec / 10) % 10 + '0';
+    rta[7] = sec % 10 + '0';
+    printf(" %s\n", rta);
+}
+//formato de la fecha
+void dateFormat(uint8_t d, uint8_t m, uint8_t y){
+    char rta[7];
+    rta[2] = rta[5] = '/';
+    rta[0] = (d / 10) % 10 + '0';
+    rta[1] = d % 10 + '0';
+    rta[3] = ( m / 10) % 10 + '0';
+    rta[4] = m % 10 + '0';
+    rta[6] = (y / 10) % 10 + '0';
+    rta[7] = y % 10 + '0';
+    printf(" %s ", rta);
 }

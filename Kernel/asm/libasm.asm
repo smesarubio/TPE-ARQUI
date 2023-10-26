@@ -3,6 +3,7 @@ GLOBAL get_seconds
 GLOBAL get_hours
 GLOBAL get_minutes
 GLOBAL getKey
+GLOBAL clock
 section .text
 	
 cpuVendor:
@@ -82,3 +83,17 @@ getKey:
 	.fin:
 		in al, 60h
 	leave_func
+
+
+clock:
+	push rbp
+	mov rbp, rsp
+
+	mov al, dil	;parte baja de DL
+	out 70h, al	
+	xor rax, rax ;mov rax, 0
+	in al, 71h ;la respuesta queda en al
+
+	mov rsp, rbp
+	pop rbp
+	ret

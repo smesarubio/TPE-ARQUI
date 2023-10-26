@@ -58,7 +58,7 @@ void updateRegisters(uint64_t* rsp){
 
 uint8_t sys_rtc(uint64_t id){
 	uint8_t time = clock(id);
-    return (time >> 4) * 10 + (time & 0x0F); //pasa el binario que devuelve clock a decimal
+    return ((time >> 4) * 10 + (time & 0x0F)); //pasa el binario que devuelve clock a decimal
     //con >> 4 elimina los bits menos significativos
     //*10 lo pasa a decimal
     //(t & 0x0F) realiza una operacion bit a bit dejando a los menos significativos en 1 y los otros en 0
