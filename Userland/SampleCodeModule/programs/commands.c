@@ -37,12 +37,15 @@ void  rtclock(){
     uint64_t date = getTime(DAYS);
     uint64_t month = getTime(MONTH);
     uint64_t year = getTime(YEAR);
-    uint64_t hour = getTime(HOURS);
-    uint64_t minutes = getTime(MINUTES);
-    uint64_t seconds = getTime(SECONDS);
     printf("The current date and time is:");
     dateFormat(date, month, year);
-    timeFormat(hour, minutes, seconds);
+    uint64_t hour = getTime(HOURS);
+    //printf("%d:", hour);
+    uint64_t minutes = getTime(MINUTES);
+    //printf("%d:", minutes);
+    uint64_t seconds = getTime(SECONDS);
+    //printf("%d\n", seconds);
+    //timeFormat(hour, minutes, seconds);
 }
 
 //formato de la hora

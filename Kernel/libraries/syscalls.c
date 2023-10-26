@@ -3,6 +3,7 @@
 #include <videoDriver.h>
 #include <keyboard_driver.h>
 #include <text_driver.h>
+#include <clock.h>
 
 int clock();
 static uint64_t registers[19] = {0};
@@ -58,6 +59,9 @@ void updateRegisters(uint64_t* rsp){
 
 uint8_t sys_rtc(uint64_t id){
 	uint8_t time = clock(id);
+	if (id == HOURS){
+		time += TIME_ZONE;
+	}
     return ((time >> 4) * 10 + (time & 0x0F)); //pasa el binario que devuelve clock a decimal
     //con >> 4 elimina los bits menos significativos
     //*10 lo pasa a decimal
