@@ -1,11 +1,12 @@
 #include <shell.h>
 #include <libc.h>
 #include <commands.h>
+#include <clock.h>
 
 static int  startedShell = 0;
 static char username[] = "Sanchu";
-static char commandList[][30] = {"help","divzero","inforeg","clear",0};
-void (*commandFuncts[])() = {help,divzero,registersinfo,clearScreen};
+static char commandList[][30] = {"help","divzero","inforeg","clear","clock",0};
+void (*commandFuncts[])() = {help,divzero,registersinfo,clearScreen,rtclock};
 
 void startShell()
 {

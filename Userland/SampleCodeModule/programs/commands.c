@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <commands.h>
 #include <syscalls.h>
+#include <clock.h>
 
 #define REGISTERS_SIZE 17
 
@@ -30,4 +31,14 @@ void registersinfo(){
 
 void clearScreen(){
     clearSc();
+}
+
+void rtclock(){
+    uint64_t date = sys_rtc(DAY);
+    uint64_t month = sys_rtc(MONTH);
+    uint64_t year = sys_rtc(YEARS);
+    uint64_t hour = sys_rtc(HOURS);
+    uint64_t minutes = sys_rtc(MINUTES);
+    uint64_t seconds = sys_rtc(SECONDS);
+    printf("The current date and time is: %s %s",dateFormat(date, month, year), timeFormat(hour, minutes, seconds));
 }

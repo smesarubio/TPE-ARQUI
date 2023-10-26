@@ -2,6 +2,7 @@
 GLOBAL _syscall
 
 GLOBAL _opcodeExp
+GLOBAL clock
 
 
 section .text
@@ -42,4 +43,17 @@ _syscall:
     ret
 _opcodeExp:
 	UD2
+	ret
+
+clock:
+	push rbp
+	mov rbp, rsp
+
+	mov al, dil	;parte baja de DL
+	out 70h, al	
+	xor rax, rax ;mov rax, 0
+	in al, 71h ;la respuesta queda en al
+
+	mov rsp, rbp
+	pop rbp
 	ret

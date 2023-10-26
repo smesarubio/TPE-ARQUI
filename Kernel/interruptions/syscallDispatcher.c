@@ -18,6 +18,8 @@ uint64_t syscall_selector(uint64_t irq,uint64_t rdi, uint64_t rsi, uint64_t rdx,
         break;
     case SYS_INFOREG_ID:
         return sys_inforeg();
+    case SYS_RTC_ID:
+        return sys_rtc(rsi);
     default:
         break;
     }
