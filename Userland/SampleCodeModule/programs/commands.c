@@ -4,7 +4,7 @@
 #include <commands.h>
 #include <syscalls.h>
 
-#define REGISTERS_SIZE 19
+#define REGISTERS_SIZE 17
 
 void help(){
     printf("\n Available commands:\n");
@@ -17,7 +17,7 @@ void divzero(){
     //int resul = x / y;
 }
 
-char * registersNames[] = {"R15","R14","R13","R12","R11","R10","R9","R8","RSI","RDI","RBP","RDX","RCX","RBX","RAX","RSP","RIP","CS","FLAGS"};
+char * registersNames[] = {"R15","R14","R13","R12","R11","R10","R9","R8","RSI","RDI","RBP","RDX","RCX","RBX","RAX","RSP", "RIP"};
 
 void registersinfo(){
     printf("\nRegistros: \n");
