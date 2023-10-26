@@ -37,7 +37,7 @@ void  rtclock(){
     uint64_t date = getTime(DAYS);
     uint64_t month = getTime(MONTH);
     uint64_t year = getTime(YEAR);
-    uint64_t hour = getTime(HOURS + TIME_ZONE);
+    uint64_t hour = getTime(HOURS);
     uint64_t minutes = getTime(MINUTES);
     uint64_t seconds = getTime(SECONDS);
     printf("The current date and time is:");
