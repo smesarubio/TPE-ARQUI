@@ -1,6 +1,7 @@
 #include <libc.h>
 #include <syscalls.h>
 #include <stdarg.h>
+#include <clock.h>
 #include <colors.h>
 
 static int currentBGC = BACKGROUND;
@@ -542,4 +543,9 @@ int strcmp(char string1[], char string2[])
 
 void clearSc(){
     _syscall(SYS_CLEAR_ID, 0, 0, 0, 0, 0);
+}
+
+
+uint64_t getTime(int i){
+    return _syscall(SYS_RTC_ID, i, 0,0,0,0);
 }

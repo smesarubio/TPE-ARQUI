@@ -2,6 +2,7 @@
 #define LIBC_H
 
 #include <colors.h>
+#include <stdint.h>
 
 void setBGC(t_color colour);
 void setFTC(t_color colour);
@@ -38,5 +39,7 @@ int getInputSize();
 void wipeScreen();
 
 void clearSc();
+
+uint64_t getTime(int i);
 
 #endif

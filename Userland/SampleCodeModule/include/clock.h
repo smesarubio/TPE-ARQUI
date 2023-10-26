@@ -11,6 +11,6 @@
 #define TIME_ZONE -3
 
 char * timeFormat(uint8_t h, uint8_t m, uint8_t sec);
-char * dateFormat(uint8_t d, uint8_t m, uint8_t d);
+char * dateFormat(uint8_t d, uint8_t m, uint8_t y);
 
 #endif

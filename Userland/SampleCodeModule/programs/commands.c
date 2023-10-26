@@ -33,12 +33,12 @@ void clearScreen(){
     clearSc();
 }
 
-void rtclock(){
-    uint64_t date = sys_rtc(DAY);
-    uint64_t month = sys_rtc(MONTH);
-    uint64_t year = sys_rtc(YEARS);
-    uint64_t hour = sys_rtc(HOURS);
-    uint64_t minutes = sys_rtc(MINUTES);
-    uint64_t seconds = sys_rtc(SECONDS);
+void  rtclock(){
+    uint64_t date = getTime(DAYS);
+    uint64_t month = getTime(MONTH);
+    uint64_t year = getTime(YEAR);
+    uint64_t hour = getTime(HOURS);
+    uint64_t minutes = getTime(MINUTES);
+    uint64_t seconds = getTime(SECONDS);
     printf("The current date and time is: %s %s",dateFormat(date, month, year), timeFormat(hour, minutes, seconds));
 }

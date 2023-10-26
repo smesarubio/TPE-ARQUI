@@ -4,8 +4,8 @@
 #include <keyboard_driver.h>
 #include <text_driver.h>
 
+int clock();
 static uint64_t registers[19] = {0};
-
 
 void sys_write(char *str, uint8_t len, t_color bgColor, t_color ftColor, int usrLen)
 {

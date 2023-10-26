@@ -15,7 +15,6 @@
 #define SYS_CPUVENDOR_ID 10
 #define SYS_WAIT_ID 11
 
-extern uint8_t clock(uint64_t id);
 //
 void sys_write(char * str, uint8_t len, t_color bgColor, t_color ftColor, int usrLen);
 uint64_t sys_read(uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint32_t r9);
@@ -23,5 +22,5 @@ void sys_wait(uint64_t rsi, char rdx, uint64_t rcx, uint64_t r8, uint32_t r9);
 void sys_clear(uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint32_t r9);
 uint64_t sys_inforeg();
 void updateRegisters(uint64_t *rsp);
-uint8_t sys_rtc();
+uint8_t sys_rtc(uint64_t rsi);
 #endif
