@@ -2,7 +2,7 @@
 GLOBAL _syscall
 
 GLOBAL _opcodeExp
-
+GLOBAL clock
 
 section .text
 
@@ -26,11 +26,6 @@ section .text
 _syscall:
     push rbp
     mov rbp, rsp
-	mov rax,3
-	mov r14,4
-	mov r12,5
-	mov rcx,6
-	mov r15,15
 	pushCalleeState
 
     int 80h

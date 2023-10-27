@@ -4,7 +4,7 @@
 #include <commands.h>
 #include <syscalls.h>
 #include <clock.h>
-
+void zero_division_exception();
 #define REGISTERS_SIZE 17
 
 void help(){
@@ -13,9 +13,10 @@ void help(){
 }
 
 void divzero(){
-    int x = 1;
-    int y = 0;
-    //int resul = x / y;
+   int x = 1;
+   int y = 0;
+   int exception = x/y;
+    //_syscall(SYS_EXIT_ID, 0, 0, 0, 0, 0);
 }
 
 char * registersNames[] = {"R15","R14","R13","R12","R11","R10","R9","R8","RSI","RDI","RBP","RDX","RCX","RBX","RAX","RSP", "RIP"};
@@ -34,40 +35,37 @@ void clearScreen(){
 }
 
 void  rtclock(){
-    uint64_t date = getTime(DAYS);
-    uint64_t month = getTime(MONTH);
-    uint64_t year = getTime(YEAR);
-    printf("The current date and time is:");
-    dateFormat(date, month, year);
-    uint64_t hour = getTime(HOURS);
-    //printf("%d:", hour);
-    uint64_t minutes = getTime(MINUTES);
-    //printf("%d:", minutes);
-    uint64_t seconds = getTime(SECONDS);
-    //printf("%d\n", seconds);
-    //timeFormat(hour, minutes, seconds);
+    printf(" The current date and time is:");
+    dateFormat();
+    timeFormat();
 }
 
 //formato de la hora
-void timeFormat(uint8_t h, uint8_t min, uint8_t sec){
+void timeFormat(){
     char rta[7];
     rta[2] = rta[5] = ':';
+    uint64_t h = getTime(HOURS);
     rta[0] = (h / 10) % 10 + '0';
     rta[1] = h % 10 + '0';
+    uint64_t min = getTime(MINUTES);
     rta[3] = (min / 10) % 10 + '0';
     rta[4] = min % 10 + '0';
+    uint64_t sec = getTime(SECONDS);
     rta[6] = (sec / 10) % 10 + '0';
     rta[7] = sec % 10 + '0';
     printf(" %s\n", rta);
 }
 //formato de la fecha
-void dateFormat(uint8_t d, uint8_t m, uint8_t y){
+void dateFormat(){
     char rta[7];
     rta[2] = rta[5] = '/';
+    uint64_t d = getTime(DAYS);
     rta[0] = (d / 10) % 10 + '0';
     rta[1] = d % 10 + '0';
+    uint64_t m = getTime(MONTH);
     rta[3] = ( m / 10) % 10 + '0';
     rta[4] = m % 10 + '0';
+    uint64_t y = getTime(YEAR);
     rta[6] = (y / 10) % 10 + '0';
     rta[7] = y % 10 + '0';
     printf(" %s ", rta);

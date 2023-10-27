@@ -53,12 +53,6 @@ void welcomeMessage(){
         return;
     }
     logo();
-    /*     printf("\n          +-+-+-+-+-+-+ +-+-+");
-        printf("\n          |Z|a|0|S|e|X| |o|s|");
-        printf("\n          +-+-+-+-+-+-+ +-+-+\n\n\n"); */
-    /*     printf("\n          +-+-+-+-+-+ +-+-+");
-        printf("\n          |K|a|c|h|u| |o|s|");
-        printf("\n          +-+-+-+-+-+ +-+-+\n\n\n"); */
 }
  
 

@@ -15,7 +15,7 @@ GLOBAL _irq05Handler
 GLOBAL _irq60Handler
 
 GLOBAL _exception0Handler
-
+GLOBAL zero_division_exception
 EXTERN irqDispatcher
 EXTERN exceptionDispatcher
 
@@ -177,7 +177,6 @@ haltcpu:
 	cli
 	hlt
 	ret
-
 
 
 
