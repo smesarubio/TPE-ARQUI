@@ -58,7 +58,12 @@ void updateRegisters(uint64_t* rsp){
 }
 
 uint8_t sys_rtc(uint64_t id){
-	uint8_t time = clock(id);
+	uint8_t time;
+	if (id == HOURS){
+		time = clock(id) + TIME_ZONE;
+	}else {
+		time = clock(id);
+	}
 	uint8_t final = ((time >> 4) * 10 + (time & 0xf));
     return final; 
 }
