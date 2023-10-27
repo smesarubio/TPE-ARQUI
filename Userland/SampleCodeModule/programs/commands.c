@@ -35,8 +35,7 @@ void clearScreen(){
 }
 
 void  rtclock(){
-    printf(" The current date and time is:");
-    dateFormat();
+    printf(" The current time is:");
     timeFormat();
 }
 
@@ -54,19 +53,4 @@ void timeFormat(){
     rta[6] = (sec / 10) % 10 + '0';
     rta[7] = sec % 10 + '0';
     printf(" %s\n", rta);
-}
-//formato de la fecha
-void dateFormat(){
-    char rta[7];
-    rta[2] = rta[5] = '/';
-    uint64_t d = getTime(DAYS);
-    rta[0] = (d / 10) % 10 + '0';
-    rta[1] = d % 10 + '0';
-    uint64_t m = getTime(MONTH);
-    rta[3] = ( m / 10) % 10 + '0';
-    rta[4] = m % 10 + '0';
-    uint64_t y = getTime(YEAR);
-    rta[6] = (y / 10) % 10 + '0';
-    rta[7] = y % 10 + '0';
-    printf(" %s ", rta);
 }

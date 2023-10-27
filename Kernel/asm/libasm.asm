@@ -3,7 +3,6 @@ GLOBAL get_seconds
 GLOBAL get_hours
 GLOBAL get_minutes
 GLOBAL getKey
-GLOBAL clock
 section .text
 	
 cpuVendor:
@@ -44,11 +43,6 @@ cpuVendor:
 %macro get_rtc_value 1
 	xor rax, rax
 	xor rdi, rdi
-	mov al, 0x0B
-	out 70h, al
-	in al, 71h 
-	or al, 0x04 
-	out 71h, al
 	mov al, %1
 	out 70h, al
 	in al, 71h
@@ -84,16 +78,3 @@ getKey:
 		in al, 60h
 	leave_func
 
-
-clock:
-	push rbp
-	mov rbp, rsp
-
-	mov al, dil	;parte baja de DL
-	out 70h, al	
-	xor rax, rax ;mov rax, 0
-	in al, 71h ;la respuesta queda en al
-
-	mov rsp, rbp
-	pop rbp
-	ret

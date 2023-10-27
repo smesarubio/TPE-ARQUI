@@ -5,7 +5,10 @@
 #include <text_driver.h>
 #include <clock.h>
 
-int clock();
+int get_minutes();
+int get_hours();
+int get_seconds();
+
 static uint64_t registers[19] = {0};
 
 void sys_write(char *str, uint8_t len, t_color bgColor, t_color ftColor, int usrLen)
@@ -41,9 +44,7 @@ uint64_t sys_read(uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint32_
 	if(rsi == 8){
 		return getChar();
 	}
-	
 
-	//return getKeyChar();
 	return 0;
 }
 
@@ -59,11 +60,20 @@ void updateRegisters(uint64_t* rsp){
 
 uint8_t sys_rtc(uint64_t id){
 	uint8_t time;
-	if (id == HOURS){
-		time = clock(id) + TIME_ZONE;
-	}else {
-		time = clock(id);
+	switch(id){
+		case HOURS:
+			time = get_hours() + TIME_ZONE;
+			break;
+		case MINUTES:
+			time = get_minutes();
+			break;
+		case SECONDS:
+			time = get_seconds();
+			break;
+		default:
+			break;
 	}
+	
 	uint8_t final = ((time >> 4) * 10 + (time & 0xf));
     return final; 
 }
