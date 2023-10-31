@@ -5,11 +5,12 @@
 #include <syscalls.h>
 #include <clock.h>
 void zero_division_exception();
+void opcodeExp();
 #define REGISTERS_SIZE 17
 
 void help(){
     printf("\n Available commands:\n");
-    printf("\nhelp\ndivzero\ninforeg\nclear\nclock");
+    printf("\nhelp\ndivzero\ninforeg\nclear\nclock\nopcode\n");
 }
 
 void divzero(){
@@ -17,6 +18,11 @@ void divzero(){
    int y = 0;
    int exception = x/y;
     //_syscall(SYS_EXIT_ID, 0, 0, 0, 0, 0);
+}
+
+void opCode(){
+    _opcodeExp();
+    return;
 }
 
 char * registersNames[] = {"R15","R14","R13","R12","R11","R10","R9","R8","RSI","RDI","RBP","RDX","RCX","RBX","RAX","RSP", "RIP"};

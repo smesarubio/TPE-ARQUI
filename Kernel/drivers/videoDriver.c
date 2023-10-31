@@ -226,9 +226,6 @@ void write(char c, t_color bgColor, t_color foreColor){
 	}
 }
 
-void hola(){
-	//_syscall(SYS_WRITE_ID, " Kachu puta ", 30, screen->defaultBGColour, screen->defaultFontColour, 0);
-}
 
 
 void printTab(){
