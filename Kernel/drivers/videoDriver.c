@@ -120,7 +120,7 @@ void load_video(){
 	screen->width = WIDTH;
     screen->height = HEIGHT;
 	paint(BACKGROUND);
-	//welcomeMessage();
+	// welcomeMessage();
 	/*
 	printCharAt('S', 1, 28);
 	printCharAt('S', 400, 400);
@@ -241,6 +241,10 @@ void printTab(){
 void printNewLine(){
 	screen->currentY += 16*font_size;
 	screen->currentX = 0;
+	if(screen->currentY>HEIGHT){
+		scrollUp();
+		screen->currentY = HEIGHT-30;
+	}
 }
 
 void printBackspace(){
@@ -299,9 +303,7 @@ void printCharAt(char c, int x0, int y0, t_color bgColor, t_color ForeColor){
 		y0+= font_size;
 		x0 -= font_size*8;
 	}
-	if(y0>HEIGHT){
-		screenScroll();
-	}
+
 }
 
 void drawSquare(int size, int x0, int y0 , t_color color){
@@ -314,3 +316,19 @@ void drawSquare(int size, int x0, int y0 , t_color color){
 	
 }
 
+void scrollUp(){
+    unsigned long x=0;
+    unsigned long long *vidmem = (unsigned long long*)VBE_mode_info->framebuffer;
+
+    while(x<=HEIGHT*WIDTH/2) //1024*768/2== HEIGHT * WIDTH /2
+    {
+    	vidmem[x]=vidmem[x+(CHAR_HEIGHT*VBE_mode_info->width/4)*3];    /* Valid only for 1024x768x32bpp */   
+    	x=x+1;
+		
+    }
+	for (int i = (HEIGHT - 33); i < HEIGHT; i++){
+		for (int j = 0; j < WIDTH; j++){
+			putPixel(BACKGROUND, j, i);
+		}
+	}
+}
