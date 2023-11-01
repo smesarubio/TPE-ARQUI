@@ -20,27 +20,27 @@ int startGame(int players){
 
 void paintBackground(char board[HEIGHT][WIDTH]){
     int colorToPrint;
-    for (int i = 0; i<WIDTH; i++){
-        for(int j = 0; j<HEIGHT; j++){
-            if (board[i][j] == ' '){
+    for (int i = 0; i<32; i++){
+        for(int j = 0; j<24; j++){
+            if (1){
                 if ((i+j) % 2 == 0){
                     colorToPrint = LIGHT_BACKGROUND;
                 }else {
                     colorToPrint = DARK_BACKGROUND;
                 }
             }
-            drawSquare(SIZE, i, j, colorToPrint);
+            drawSquare(SIZE, i*SIZE, j*SIZE, colorToPrint);
         }
     }
 }
 
 void singlePlayer(){
-    char board[HEIGHT][WIDTH];
+    char board[16][12];
     gameFunction(board);
     gameEnded = 0;
     paintBackground(board);
 
-    while (getChar() != 'x'){
+    while (1){
         continue;
     }
     clearSc();
