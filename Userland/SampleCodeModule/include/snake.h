@@ -8,9 +8,9 @@
 #define LEFT 'a'
 #define RIGHT 'd'
 
-#define WIDTH 500
-#define HEIGHT 500
-#define SIZE 1
+#define WIDTH 1024
+#define HEIGHT 768
+#define SIZE 32
 
 int startGame(int players);
 void paintBackground(char board[HEIGHT][WIDTH]);
