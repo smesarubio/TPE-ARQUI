@@ -73,7 +73,7 @@ void singlePlayer(){
 void move(player * playerOne){
     int current_hx = playerOne->head.x;
     int current_hy = playerOne->head.y;
-    drawSquare(SIZE, current_hx*SIZE, current_hy*SIZE, LIGHT_BACKGROUND);
+    drawSquare(SIZE, current_hx*SIZE, current_hy*SIZE, ERROR);
     switch (playerOne->move) {
         case UP:
             playerOne->head.y--;
