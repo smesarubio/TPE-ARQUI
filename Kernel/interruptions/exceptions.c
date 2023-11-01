@@ -26,7 +26,7 @@ static void zero_division() {
 
 static void opcode(){
 	sys_write("\n",1,BACKGROUND, FOREGROUND,0);
-	sys_write("Exception : opcode.", 29, BACKGROUND, ERROR,0);
+	sys_write("Exception : invalid opcode operation.", 29, BACKGROUND, ERROR,0);
 	sys_write("\n",1,BACKGROUND, FOREGROUND,0);
 	return;
 }

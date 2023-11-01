@@ -36,6 +36,6 @@ _syscall:
 
     ret
 _opcodeExp:
-	UD2
+    UD2
 	ret
 
