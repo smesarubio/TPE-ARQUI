@@ -8,7 +8,7 @@
 static void zero_division();
 static void opcode();
 
-void exceptionDispatcher(int exception) {
+void exceptionDispatcher(int exception, uint8_t regs[]) {
 	if (exception == ZERO_EXCEPTION_ID)
 		zero_division();
 	if(exception == OPCODE_EXCEPTION_ID)
