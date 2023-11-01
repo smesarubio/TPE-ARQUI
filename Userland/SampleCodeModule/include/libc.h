@@ -43,5 +43,6 @@ void clearSc();
 uint64_t getTime(int i);
 
 void drawSquare(int size, int x, int y, int color);
+int randInt(int min, int max);
 
 #endif

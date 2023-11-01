@@ -13,6 +13,7 @@ static int buffSize = 0;
 static char buffer[BUFF_LEN]={0};
 static int firstChange=1;
 static int changedUserName=0;
+static int rand_seed = 42;
 
 void setFTC(t_color colour) {
     currentFTC = colour;
@@ -539,6 +540,11 @@ int strcmp(char string1[], char string2[])
     if(string1[i]!=0 && string2[i]==0)
         return 1;
     return -1;
+}
+
+int randInt(int min, int max){
+    rand_seed = rand_seed * 1664525 + 1013904223;
+    return min + (int)(rand_seed % (max - min + 1));
 }
 
 void clearSc(){
