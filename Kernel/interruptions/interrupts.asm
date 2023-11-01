@@ -14,14 +14,14 @@ GLOBAL _irq04Handler
 GLOBAL _irq05Handler
 GLOBAL _irq60Handler
 
-GLOBAL _exception0Handler
-GLOBAL _exception6Handler
+GLOBAL _exception00Handler
+GLOBAL _exception06Handler
 
 GLOBAL zero_division_exception
 EXTERN irqDispatcher
 EXTERN exceptionDispatcher
 
-
+EXTERN getStackBase
 SECTION .text
 
 %macro pushState 0
@@ -172,19 +172,29 @@ _irq60Handler:
 	
 
 ;Zero Division Exception
-_exception0Handler:
-	exceptionHandler 0
+_exception00Handler:
+	call getStackBase
+	mov [rsp+24],rax 
+	mov rax, userland
+	mov [rsp], rax 
+	;exceptionHandler 0
+	iretq
 
-_exception6Handler
+_exception06Handler
+	call getStackBase
+	mov [rsp+24],rax 
+	mov rax, userland
+	mov [rsp], rax 
 	exceptionHandler 6
-
+	iretq
 haltcpu:
 	cli
 	hlt
 	ret
 
 
-
+section .rodata
+	userland equ 0x400000
 
 
 
