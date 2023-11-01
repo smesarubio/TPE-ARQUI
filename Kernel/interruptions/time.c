@@ -4,20 +4,29 @@
 #include <stdlib.h>
 
 static unsigned long ticks = 0;
-
-void timer_handler() {
+int se = 0;
+void timer_handler()
+{
 	ticks++;
-	if(ticks %(5*18)==0){
-		//ncPrint(" [20 seconds have passed] ");
-		//ncNewline();
-		//paint(0xFF00FF);
-		// scroll();
-		//  Seed the random number generator with the current time
+	se += 55;
+	if (ticks % (1 * 18) == 0)
+	{
 	}
 }
 
+void sleep(int millis){
+	se = 0;
+	while (se<millis)
+	{
+		_hlt();
+	}
+}
 
-
+void wait(){
+	int finalTicks = ticks+9;
+	while(ticks<finalTicks);
+	return;
+}
 
 int ticks_elapsed() {
 	return ticks;

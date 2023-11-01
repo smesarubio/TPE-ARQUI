@@ -11,7 +11,10 @@
     "text_driver.h": "c",
     "commands.h": "c",
     "stdlib.h": "c",
-    "clock.h": "c"
+    "clock.h": "c",
+    "time.h": "c",
+    "naiveconsole.h": "c",
+    "snake.h": "c"
   },
   "files.exclude": {
     "**/.git": true,

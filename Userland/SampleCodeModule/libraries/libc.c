@@ -2,6 +2,7 @@
 #include <syscalls.h>
 #include <stdarg.h>
 #include <clock.h>
+#include <time.h>
 #include <colors.h>
 
 static int currentBGC = BACKGROUND;
@@ -25,6 +26,11 @@ char readChar(){
 
 void waitForEnter(){
     _syscall(SYS_WAIT_ID,1,'\n',0,0,0); //wait(1) for char '\n'
+    return;
+}
+
+void waitSec(){
+    _syscall(SYS_WAIT_ID,1,0,0,0,0); //wait(1) for char '\n'
     return;
 }
 
@@ -551,6 +557,9 @@ void clearSc(){
     _syscall(SYS_CLEAR_ID, 0, 0, 0, 0, 0);
 }
 
+void backToTerm(){
+    _syscall(SYS_CLEAR_ID, 1, 1, 0, 0, 0);
+}
 
 uint64_t getTime(int i){
     return _syscall(SYS_RTC_ID, i, 0,0,0,0);
@@ -558,4 +567,8 @@ uint64_t getTime(int i){
 
 void drawSquare(int size, int x, int y, int color){
     _syscall(SYS_DRAW_ID, size, x, y, color, 0);
+}
+
+int getTicksInt(){
+    return _syscall(SYS_TICKS_ID, 0,0,0,0,0);
 }

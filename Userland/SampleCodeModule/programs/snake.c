@@ -6,7 +6,7 @@
 int gameEnded;
 
 int startGame(int players){
-    clearSc(); //ver que hace
+    //clearScSaveBuf(); //ver que hace
     int valid = 1;  
     switch(players){
         case 1:
@@ -24,13 +24,12 @@ void paintBackground(char board[HEIGHT][WIDTH], player * player){
     int colorToPrint;
     for (int i = 0; i<HEIGHT; i++){
         for(int j = 0; j<WIDTH; j++){
-            if (board[i][j] == ' '){
-                if ((i+j) % 2 == 0){
-                   colorToPrint = LIGHT_BACKGROUND;
-                }else {
-                    colorToPrint = DARK_BACKGROUND;
-                }
-            }else if (board[i][j] == SNAKE_HEAD){
+            if ((i+j) % 2 == 0){
+                colorToPrint = LIGHT_BACKGROUND;
+            }else {
+                colorToPrint = DARK_BACKGROUND;
+            }
+            if (board[i][j] == SNAKE_HEAD){
                 colorToPrint = player->gender;
             }
             drawSquare(SIZE, i*SIZE, j*SIZE, colorToPrint);
@@ -45,16 +44,51 @@ void clearPixel(char board[HEIGHT][WIDTH], int i, int j){
 void singlePlayer(){
     char board[HEIGHT][WIDTH];
     gameEnded = 0;
+    int c = 0;
     player playerONE;
     gameFunction(board, &playerONE);
     paintBackground(board,&playerONE);
+    char key = RIGHT;
     while (!gameEnded){
-        handleInput(&playerONE);
-        action(&playerONE);
+        //handleInput(&playerONE);
+        //action(&playerONE);
         //updateBackground(board, &playerONE);
-        paintBackground(board, &playerONE);
+        //paintBackground(board, &playerONE);
+        key = readChar();
+        if(key ==  'q' ){
+            gameEnded = 1;
+        }
+        if(!((playerONE.move == UP && key == DOWN) || (playerONE.move == DOWN && key == UP) || (playerONE.move == LEFT && key == RIGHT) || (playerONE.move == RIGHT && key == LEFT))){
+            if(key == 'w' ||key == 'a' ||key == 's' || key == 'd'){
+                playerONE.move = key;
+            }
+        }
+        waitSec();
+        move(&playerONE);
     }
-    clearSc();
+    backToTerm();
+    
+}
+
+void move(player * playerOne){
+    int current_hx = playerOne->head.x;
+    int current_hy = playerOne->head.y;
+    drawSquare(SIZE, current_hx*SIZE, current_hy*SIZE, LIGHT_BACKGROUND);
+    switch (playerOne->move) {
+        case UP:
+            playerOne->head.y--;
+            break;
+        case DOWN:
+            playerOne->head.y++;
+            break;
+        case LEFT:
+            playerOne->head.x--;
+            break;
+        case RIGHT:
+            playerOne->head.x++;
+            break;
+    }
+    drawSquare(SIZE, playerOne->head.x * SIZE,playerOne->head.y * SIZE, ERROR);
 }
 
 void handleInput(player * playerONE){
@@ -100,7 +134,7 @@ void gameFunction(char board[HEIGHT][WIDTH], player * player){
 
     player->head.x = WIDTH/2;
     player->head.y = HEIGHT/2;
-    player->move = UP;
+    player->move = RIGHT;
     player->gender = COMP1;
     player->character = SNAKE_HEAD;
     player->lenght= 1;
@@ -115,5 +149,7 @@ void gameFunction(char board[HEIGHT][WIDTH], player * player){
         board[player->body[k].y][player->body[k].x] = SNAKE_TAIL;
     }
 }
+
+
 
 

@@ -15,6 +15,7 @@
 #define SYS_CPUVENDOR_ID 10
 #define SYS_WAIT_ID 11
 #define SYS_DRAW_ID 12
+#define SYS_TICKS_ID 13
 
 //
 void sys_write(char * str, uint8_t len, t_color bgColor, t_color ftColor, int usrLen);

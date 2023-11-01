@@ -4,7 +4,7 @@
 #include <keyboard_driver.h>
 #include <text_driver.h>
 #include <clock.h>
-
+#include <time.h>
 int get_minutes();
 int get_hours();
 int get_seconds();
@@ -20,14 +20,21 @@ void sys_write(char *str, uint8_t len, t_color bgColor, t_color ftColor, int usr
 }
 
 void sys_clear(uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint32_t r9){
-	clear();
+	switch (rsi)
+	{
+	case 0:
+		clear();
+		break;
+	case 1:
+		rewrite();
+		break;
+	default:
+		break;
+	}
 }
 
 void sys_wait(uint64_t rsi, char rdx, uint64_t rcx, uint64_t r8, uint32_t r9){
-	if(rsi == 1){//wait for char
-		char c;
-		while ((c = getKey()) != rdx);
-	}
+	sleep(500);
 }
 
 uint64_t sys_read(uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint32_t r9){

@@ -1,6 +1,7 @@
 #include <syscallDispatcher.h>
 #include <syscalls.h>
 #include <stdint.h>
+#include <time.h>
 uint64_t syscall_selector(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint32_t r9){
     switch (rdi)
     {
@@ -23,6 +24,8 @@ uint64_t syscall_selector(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx
     case SYS_DRAW_ID:
         sys_drawSquare(rsi, rdx, rcx, r8);
         break;
+    case SYS_TICKS_ID:
+        return ticks_elapsed();
     default:
         break;
     }
