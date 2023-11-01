@@ -11,6 +11,8 @@ typedef enum
     COMP1 = 0xc678dd,
     COMP2 = 0x56b6c3,
     FOREGROUND = 0xdcdfe4,
+    LIGHT_BACKGROUND = 0xE9FF33,
+    DARK_BACKGROUND = 0xCBFF33,
 }t_color;
 
 #endif

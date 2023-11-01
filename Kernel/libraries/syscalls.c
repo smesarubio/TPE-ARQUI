@@ -77,3 +77,7 @@ uint8_t sys_rtc(uint64_t id){
 	uint8_t final = ((time >> 4) * 10 + (time & 0xf));
     return final; 
 }
+
+void sys_drawSquare(int size, int x, int y, int color){
+	drawSquare(size, x, y, color);
+}

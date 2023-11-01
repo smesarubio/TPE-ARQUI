@@ -4,12 +4,14 @@
 #include <commands.h>
 #include <syscalls.h>
 #include <clock.h>
+#include <snake.h>
+
 void zero_division_exception();
 #define REGISTERS_SIZE 17
 
 void help(){
     printf("\n Available commands:\n");
-    printf("\nhelp\ndivzero\ninforeg\nclear\nclock");
+    printf("\nhelp\ndivzero\ninforeg\nclear\nclock\nsnake");
 }
 
 void divzero(){
@@ -53,4 +55,10 @@ void timeFormat(){
     rta[6] = (sec / 10) % 10 + '0';
     rta[7] = sec % 10 + '0';
     printf(" %s\n", rta);
+}
+
+void snake(){
+    if (!startGame(1)){
+        return;
+    }
 }

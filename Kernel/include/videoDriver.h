@@ -18,5 +18,5 @@ void writeStatic(char c);
 void cursor();
 void setFontSize(int i);
 void stopCursor();
-void hola();
+
 #endif

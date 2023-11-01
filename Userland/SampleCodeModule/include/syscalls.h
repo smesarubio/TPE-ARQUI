@@ -15,7 +15,9 @@
 #define SYS_EXIT_ID 9
 #define SYS_CPUVENDOR_ID 10
 #define SYS_WAIT_ID 11
+#define SYS_DRAW_ID 12
 
 
 uint64_t _syscall(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint64_t r9);
+
 #endif

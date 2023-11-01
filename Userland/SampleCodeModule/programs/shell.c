@@ -5,8 +5,8 @@
 
 static int  startedShell = 0;
 static char username[] = "Sanchu";
-static char commandList[][30] = {"help","divzero","inforeg","clear","clock",0};
-void (*commandFuncts[])() = {help,divzero,registersinfo,clearScreen,rtclock};
+static char commandList[][30] = {"help","divzero","inforeg","clear","clock","snake",0};
+void (*commandFuncts[])() = {help,divzero,registersinfo,clearScreen,rtclock,snake};
 
 void startShell()
 {

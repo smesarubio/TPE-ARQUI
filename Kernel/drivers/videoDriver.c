@@ -226,10 +226,6 @@ void write(char c, t_color bgColor, t_color foreColor){
 	}
 }
 
-void hola(){
-	//_syscall(SYS_WRITE_ID, " Kachu puta ", 30, screen->defaultBGColour, screen->defaultFontColour, 0);
-}
-
 
 void printTab(){
 	for (int i = 0; i < 8*font_size; i++)
@@ -261,28 +257,6 @@ void printBackspace(){
 	}
 	return;
 }
-
-
-/* void printCharAt(char c, int x0, int y0, t_color bgColor, t_color ForeColor){
-	uint8_t *  s = getCharMap(c);
-	int h = 16;
-	for (int i = 0; i < h; i++)
-	{
-		for (int j = 7; j >= 0; j--)
-		{
-			int bit = (s[i] >> j) & 1;
-			if(bit == 1){
-				putPixel(ForeColor, x0, y0);
-			}else if(bit == 0){
-				putPixel(bgColor, x0, y0);
-			}
-			x0++;
-		}
-		y0++;
-		x0 -= 8;
-	}
-}
- */
 
 
 void printCharAt(char c, int x0, int y0, t_color bgColor, t_color ForeColor){

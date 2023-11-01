@@ -549,3 +549,7 @@ void clearSc(){
 uint64_t getTime(int i){
     return _syscall(SYS_RTC_ID, i, 0,0,0,0);
 }
+
+void drawSquare(int size, int x, int y, int color){
+    _syscall(SYS_DRAW_ID, size, x, y, color, 0);
+}
