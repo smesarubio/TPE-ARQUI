@@ -51,7 +51,7 @@ void singlePlayer(){
     while (!gameEnded){
         handleInput(&playerONE);
         action(&playerONE);
-        updateBackground(board, &playerONE);
+        //updateBackground(board, &playerONE);
         paintBackground(board, &playerONE);
     }
     clearSc();
@@ -98,8 +98,8 @@ void updateBackground(char board[HEIGHT][WIDTH], player * playerONE){
 
 void gameFunction(char board[HEIGHT][WIDTH], player * player){
 
-    player->head.x = randInt(WIDTH, HEIGHT);
-    player->head.y = randInt(WIDTH, HEIGHT);
+    player->head.x = WIDTH/2;
+    player->head.y = HEIGHT/2;
     player->move = UP;
     player->gender = COMP1;
     player->character = SNAKE_HEAD;
