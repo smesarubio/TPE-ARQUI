@@ -8,8 +8,8 @@
 #define LEFT 'a'
 #define RIGHT 'd'
 
-#define WIDTH 40
-#define HEIGHT 40
+#define WIDTH 500
+#define HEIGHT 500
 #define SIZE 1
 
 int startGame(int players);
