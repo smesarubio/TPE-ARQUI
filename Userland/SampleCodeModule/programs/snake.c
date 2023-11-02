@@ -27,6 +27,9 @@ void paintBackground(char board[HEIGHT][WIDTH], player * player){
             if (board[i][j] == SNAKE_HEAD || board[i][j] == SNAKE_TAIL){
                 colorToPrint = player->gender;
             }
+            else if (board[i][j] == FOOD){
+                 colorToPrint = COMP2;
+            }
             else {
                  if ((i+j) % 2 == 0){
                     colorToPrint = LIGHT_BACKGROUND;
@@ -50,14 +53,12 @@ void singlePlayer(){
     gameEnded = 0;
 
     player playerONE;
+    
     gameFunction(board, &playerONE);
+    generateFood(board);
     paintBackground(board,&playerONE);
     char key = RIGHT;
     while (!gameEnded){
-        //handleInput(&playerONE);
-        //action(&playerONE);
-        //updateBackground(board, &playerONE);
-        //paintBackground(board, &playerONE);
         key = readChar();
         if(key ==  'q' ){
             gameEnded = 1;
@@ -67,7 +68,6 @@ void singlePlayer(){
                 playerONE.move = key;
             }
         }
-        //updateBackground(board, &playerONE);
         action(board, &playerONE);
         waitSec();
     }
@@ -121,39 +121,23 @@ void action(char board[HEIGHT][WIDTH], player* playerONE){
             playerONE->head.x++;
             break;
     }
-    // Shift all body segments one position back
+     if (board[playerONE->head.x][playerONE->head.y] == FOOD){
+        playerONE->lenght++;  
+        generateFood(board);
+    }
+    //actualizo el cuerpo mientras se mueve
     for (int i = playerONE->lenght - 1; i >= 0; i--) {
         playerONE->body[i + 1] = playerONE->body[i];
     }
-
-    // Add the new segment at the front of the body
+    // muevo la cabeza
     playerONE->body[0] = prevHead;
-    playerONE->lenght++;  // Increase snake length
-      // Update board with new positions
+    // Update board with new positions
     board[playerONE->head.x][playerONE->head.y] = playerONE->character;
     for (int i = 0; i < playerONE->lenght; i++) {
         board[playerONE->body[i].x][playerONE->body[i].y] = SNAKE_TAIL;
     }
-
-    // If snake's length exceeds MAX_LENGTH, remove the last segment
-    if (playerONE->lenght > MAXLENGHT) {
-        Point tailEnd = playerONE->body[playerONE->lenght - 1];
-        board[tailEnd.x][tailEnd.y] = ' ';  // Clear the board at the tail end
-        playerONE->lenght--;  // Decrease snake's length
-    }
-    // //muevo la nueva cabeza
-    // for (int i = 0; i<playerONE->lenght; i++){
-    //     Point temp = playerONE->body[i];
-    //     playerONE->body[i] = prevHead;
-    //     prevHead = temp;
-    // }
-
-    // clearPixel(board, prevHead.x, prevHead.y);
-    // board[playerONE->head.x][playerONE->head.y] = playerONE->character;
-    // for (int i = 0; i<playerONE->lenght; i++){
-    //     board[playerONE->body[i].x][playerONE->body[i].y] = SNAKE_TAIL;
-    // }
-    
+    Point lastMove = playerONE->body[playerONE->lenght];
+    board[lastMove.x][lastMove.y] = ' ';
     paintBackground(board, playerONE);
 }
 
@@ -165,7 +149,7 @@ void gameFunction(char board[HEIGHT][WIDTH], player * player){
     player->move = RIGHT;
     player->gender = COMP1;
     player->character = SNAKE_HEAD;
-    player->lenght = 2;
+    player->lenght = 1;
 
     for (int i = 0; i< HEIGHT; i++){
         for (int j=0; j<WIDTH; j++)
@@ -179,6 +163,10 @@ void gameFunction(char board[HEIGHT][WIDTH], player * player){
     board[player->head.x][player->head.y] = player->character;
 }
 
-
+void generateFood(char board[HEIGHT][WIDTH]){
+    int randx = randInt(WIDTH, HEIGHT);
+    int randy = randInt(WIDTH, HEIGHT);
+    board[randx][randy] = FOOD;
+}
 
 

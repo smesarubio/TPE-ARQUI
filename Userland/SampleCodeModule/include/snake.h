@@ -9,6 +9,7 @@
 #define RIGHT 'd'
 #define SNAKE_HEAD 'h'
 #define SNAKE_TAIL 't'
+#define FOOD 'f'
 
 #define WIDTH 24
 #define HEIGHT 32
@@ -37,5 +38,5 @@ void gameFunction(char board[HEIGHT][WIDTH], player * player);
 void action(char board[HEIGHT][WIDTH], player * playerONE);
 void handleInput(player * playerONE);
 //void updateBackground(char board[HEIGHT][WIDTH], player * playerONE);
-
+void generateFood(char board[HEIGHT][WIDTH]);
 #endif
