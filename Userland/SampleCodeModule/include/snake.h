@@ -11,8 +11,8 @@
 #define SNAKE_TAIL 't'
 #define FOOD 'f'
 
-#define WIDTH 32
-#define HEIGHT 24
+#define WIDTH 24
+#define HEIGHT 32
 #define SIZE 32
 
 typedef struct Point{

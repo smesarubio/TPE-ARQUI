@@ -121,7 +121,7 @@ void action(char board[HEIGHT][WIDTH], player* playerONE, int *gameEnded){
             playerONE->head.x++;
             break;
     }
-    if (playerONE->head.x == - 1 || playerONE->head.x == WIDTH || playerONE->head.y == - 1 || playerONE->head.x == HEIGHT ){
+    if (playerONE->head.x == -1 || playerONE->head.x == HEIGHT || playerONE->head.y == - 1 || playerONE->head.y == WIDTH ){
         *gameEnded = 1;
         playerONE->flag = 0;
     }
