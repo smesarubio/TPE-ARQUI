@@ -127,6 +127,8 @@ void action(char board[HEIGHT][WIDTH], player* playerONE, int *gameEnded){
     }
      if (board[playerONE->head.x][playerONE->head.y] == FOOD){
         playerONE->lenght++; 
+        playSound(1500);
+        mute();
         generateFood(board);
     }
     //actualizo el cuerpo mientras se mueve

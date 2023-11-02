@@ -4,6 +4,7 @@
 #include <clock.h>
 #include <time.h>
 #include <colors.h>
+#include <sound.h>
 
 static int currentBGC = BACKGROUND;
 static int currentFTC = FOREGROUND;
@@ -15,6 +16,13 @@ static char buffer[BUFF_LEN]={0};
 static int firstChange=1;
 static int changedUserName=0;
 static int rand_seed = 42;
+
+void playSound(uint32_t frequency){
+    _syscall(SYS_SOUND_ID, frequency,0,0,0,0);
+}
+void mute(){
+    _syscall(SYS_MUTE_ID, 0,0,0,0,0);
+}
 
 void setFTC(t_color colour) {
     currentFTC = colour;

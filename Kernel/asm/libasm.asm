@@ -3,6 +3,8 @@ GLOBAL get_seconds
 GLOBAL get_hours
 GLOBAL get_minutes
 GLOBAL getKey
+GLOBAL outSpeaker
+GLOBAL inSpeaker
 section .text
 	
 cpuVendor:
@@ -78,3 +80,26 @@ getKey:
 		in al, 60h
 	leave_func
 
+
+inSpeaker:
+	push rbp
+	mov rbp, rsp
+
+	mov rdx, rdi
+	in al, dx
+
+	mov rsp, rbp
+	pop rbp
+	ret
+
+outSpeaker:
+	push rbp
+	mov rbp, rsp 
+
+	mov rax, rsi 
+	mov rdx, rdi 
+	out dx, al 
+
+	mov rsp, rbp
+	pop rbp
+	ret

@@ -2,6 +2,8 @@
 #include <syscalls.h>
 #include <stdint.h>
 #include <time.h>
+#include <sound.h>
+
 uint64_t syscall_selector(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint32_t r9){
     switch (rdi)
     {
@@ -26,6 +28,12 @@ uint64_t syscall_selector(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx
         break;
     case SYS_TICKS_ID:
         return ticks_elapsed();
+    case SYS_SOUND_ID:
+        playSound(rsi);
+        break;
+    case SYS_MUTE_ID:
+        mute();
+        break;
     default:
         break;
     }
