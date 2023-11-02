@@ -136,6 +136,7 @@ void action(char board[HEIGHT][WIDTH], player* playerONE){
     for (int i = 0; i < playerONE->lenght; i++) {
         board[playerONE->body[i].x][playerONE->body[i].y] = SNAKE_TAIL;
     }
+    //borro la ultima posicion de la cola
     Point lastMove = playerONE->body[playerONE->lenght];
     board[lastMove.x][lastMove.y] = ' ';
     paintBackground(board, playerONE);
@@ -155,7 +156,7 @@ void gameFunction(char board[HEIGHT][WIDTH], player * player){
         for (int j=0; j<WIDTH; j++)
             board[i][j] = ' ';
     }
-    for (int i =0; i<player->lenght; i++){
+    for (int i = 0; i<player->lenght; i++){
         player->body[i].x = player->head.x;
         player->body[i].y = player->head.y - i;
         board[player->body[i].x][player->body[i].y] = SNAKE_TAIL;
