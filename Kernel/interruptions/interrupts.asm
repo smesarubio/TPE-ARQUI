@@ -177,7 +177,7 @@ _exception00Handler:
 	mov [rsp+24],rax 
 	mov rax, userland
 	mov [rsp], rax 
-	;exceptionHandler 0
+	exceptionHandler 0
 	iretq
 
 _exception06Handler:
@@ -205,6 +205,7 @@ _exception06Handler:
 	mov [rsp+24],rax 
 	mov rax, userland
 	mov [rsp], rax 
+	;push regs
 	exceptionHandler 6
 	iretq
 haltcpu:
