@@ -31,7 +31,7 @@ void paintBackground(char board[HEIGHT][WIDTH], player * player){
                  colorToPrint = COMP2;
             }
             else {
-                 if ((i+j) % 2 == 0){
+                if ((i+j) % 2 == 0){
                     colorToPrint = LIGHT_BACKGROUND;
                 }else {
                     colorToPrint = DARK_BACKGROUND;
@@ -68,7 +68,7 @@ void singlePlayer(){
                 playerONE.move = key;
             }
         }
-        action(board, &playerONE);
+        action(board, &playerONE, &gameEnded);
         waitSec();
     }
     backToTerm();
@@ -105,7 +105,7 @@ void handleInput(player * playerONE){
     return;
 }
 
-void action(char board[HEIGHT][WIDTH], player* playerONE){
+void action(char board[HEIGHT][WIDTH], player* playerONE, int *gameEnded){
     Point prevHead = playerONE->head;
     switch (playerONE->move) {
         case UP:
@@ -121,8 +121,12 @@ void action(char board[HEIGHT][WIDTH], player* playerONE){
             playerONE->head.x++;
             break;
     }
+    if (playerONE->head.x == - 1 || playerONE->head.x == WIDTH || playerONE->head.y == - 1 || playerONE->head.x == HEIGHT ){
+        *gameEnded = 1;
+        playerONE->flag = 0;
+    }
      if (board[playerONE->head.x][playerONE->head.y] == FOOD){
-        playerONE->lenght++;  
+        playerONE->lenght++; 
         generateFood(board);
     }
     //actualizo el cuerpo mientras se mueve
@@ -151,22 +155,23 @@ void gameFunction(char board[HEIGHT][WIDTH], player * player){
     player->gender = COMP1;
     player->character = SNAKE_HEAD;
     player->lenght = 1;
-
+    player->flag = 1;
     for (int i = 0; i< HEIGHT; i++){
         for (int j=0; j<WIDTH; j++)
             board[i][j] = ' ';
     }
+
     for (int i = 0; i<player->lenght; i++){
         player->body[i].x = player->head.x;
-        player->body[i].y = player->head.y - i;
+        player->body[i].y = player->head.y - (i + 1);
         board[player->body[i].x][player->body[i].y] = SNAKE_TAIL;
     }
     board[player->head.x][player->head.y] = player->character;
 }
 
 void generateFood(char board[HEIGHT][WIDTH]){
-    int randx = randInt(WIDTH, HEIGHT);
-    int randy = randInt(WIDTH, HEIGHT);
+    int randy = randInt(0, WIDTH - 1);
+    int randx = randInt(0, HEIGHT - 1);
     board[randx][randy] = FOOD;
 }
 

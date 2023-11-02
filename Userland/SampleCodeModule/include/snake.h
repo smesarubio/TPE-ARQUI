@@ -11,10 +11,9 @@
 #define SNAKE_TAIL 't'
 #define FOOD 'f'
 
-#define WIDTH 24
-#define HEIGHT 32
+#define WIDTH 32
+#define HEIGHT 24
 #define SIZE 32
-#define MAXLENGHT 5
 
 typedef struct Point{
     int x;
@@ -28,6 +27,7 @@ typedef struct player{
     int gender; //rosa o celeste
     char character;
     int lenght;
+    int flag;
 } player;
 
 int startGame(int players);
@@ -35,7 +35,7 @@ void paintBackground(char board[HEIGHT][ WIDTH], player * player);
 void clearPixel(char board[HEIGHT][WIDTH], int i, int j);
 void singlePlayer();
 void gameFunction(char board[HEIGHT][WIDTH], player * player);
-void action(char board[HEIGHT][WIDTH], player * playerONE);
+void action(char board[HEIGHT][WIDTH], player * playerONE, int * gameEnded);
 void handleInput(player * playerONE);
 //void updateBackground(char board[HEIGHT][WIDTH], player * playerONE);
 void generateFood(char board[HEIGHT][WIDTH]);
