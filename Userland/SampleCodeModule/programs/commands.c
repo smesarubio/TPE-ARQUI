@@ -47,7 +47,7 @@ void  rtclock(){
 
 //formato de la hora
 void timeFormat(){
-    char rta[8];
+    char rta[7];
     rta[2] = rta[5] = ':';
     uint64_t h = getTime(HOURS);
     rta[0] = (h / 10) % 10 + '0';
@@ -58,6 +58,5 @@ void timeFormat(){
     uint64_t sec = getTime(SECONDS);
     rta[6] = (sec / 10) % 10 + '0';
     rta[7] = sec % 10 + '0';
-    rta[8] = '\0';
     printf(" %s\n", rta);
 }

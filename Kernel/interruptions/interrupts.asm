@@ -81,8 +81,8 @@ SECTION .text
 	pushState
 
 	mov rdi, %1 ; pasaje de parametro
+	mov rsi, regs
 	call exceptionDispatcher
-
 	popState
 	iretq
 %endmacro
