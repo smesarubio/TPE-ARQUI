@@ -1,10 +1,11 @@
 #include <libc.h>
 #include <stdint.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 #include <commands.h>
 #include <syscalls.h>
 #include <clock.h>
 #include <snake.h>
+#include <libc.h> 
 
 void zero_division_exception();
 void opcodeExp();
@@ -12,14 +13,14 @@ void opcodeExp();
 
 void help(){
     printf("\n Available commands:\n");
-    printf("\nhelp\ndivzero\ninforeg\nclear\nclock\nsnake");
+    printf("\nhelp\ndivzero\ninforeg\nclear\nclock\nsnake\nopcode\n");
     //printf("\nhelp\ndivzero\ninforeg\nclear\nclock\nopcode\n");
 }
 
 void divzero(){
-   int x = 1;
-   int y = 0;
-   int exception = x/y;
+    int x = 1;
+    int y = 0;
+    int exception = x / y;
     //_syscall(SYS_EXIT_ID, 0, 0, 0, 0, 0);
 }
 

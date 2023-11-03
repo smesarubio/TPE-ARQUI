@@ -111,7 +111,8 @@ int main()
 	ncNewline();
 	// int escPressed = 0;
 	ncPrint("[Finished]");
-	while (1);
+	while (1)
+		;
 	return 0;
 }
 
