@@ -120,15 +120,15 @@ void action(char board[HEIGHT][WIDTH], player* player, int *gameEnded){
     board[lastMove.x][lastMove.y] = ' ';
 }
 
-void UpdateMove(char key, player*player){
-    if(key ==  'q' ){
+void UpdateMove(char key, player*player, char moveUp, char moveDown, char moveLeft, char moveRight ){
+     if(key ==  'q' ){
             gameEnded = 1;
-    }
-    if(!((player->move == UP && key == DOWN) || (player->move == DOWN && key == UP) || (player->move == LEFT && key == RIGHT) || (player->move == RIGHT && key == LEFT))){
-        if(key == UP ||key == LEFT ||key == DOWN || key == RIGHT){
-            player->move = key;
         }
-    }
+        if(!((player->move == moveUp && key == moveDown) || (player->move == moveDown && key == moveUp) || (player->move == moveLeft && key == moveRight) || (player->move == moveRight && key == moveLeft))){
+            if(key == moveUp ||key == moveLeft ||key == moveDown || key == moveRight){
+                player->move = key;
+            }
+        }
     
 }
 
@@ -157,7 +157,7 @@ void singlePlayer(){
     char key = RIGHT;
     while (!gameEnded){
         key = readChar();
-        UpdateMove(key, &playerONE);
+        UpdateMove(key, &playerONE, UP, DOWN, LEFT, RIGHT);
         action(board, &playerONE, &gameEnded);
         paintBackground(board, &playerONE, NULL);
         waitSec();
@@ -186,10 +186,10 @@ void doublePlayers(){
     char keyTWO = DOWN2;
     while (!gameEnded){
         keyONE = readChar();
-        UpdateMove(keyONE, &playerONE);
+        UpdateMove(keyONE, &playerONE, UP, DOWN, LEFT, RIGHT);
         action(board, &playerONE, &gameEnded);
         keyTWO = readChar();
-        UpdateMove(keyTWO, &playerTWO);
+        UpdateMove(keyTWO, &playerTWO, UP2, DOWN2, LEFT2, RIGHT2);
         action(board, &playerTWO, &gameEnded);
         paintBackground(board, &playerONE, &playerTWO);
         waitSec();
