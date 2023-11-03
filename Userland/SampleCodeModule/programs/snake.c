@@ -121,14 +121,20 @@ void action(char board[HEIGHT][WIDTH], player* playerONE, int *gameEnded){
             playerONE->head.x++;
             break;
     }
-    if (playerONE->head.x == -1 || playerONE->head.x == HEIGHT || playerONE->head.y == - 1 || playerONE->head.y == WIDTH ){
+    for (int i = 0; i < playerONE->lenght ; i++){
+        if (playerONE->head.x == playerONE->body[i].x && playerONE->head.y == playerONE->body[i].y){
+            *gameEnded = 0;
+            playerONE->flag = 0;
+        }
+    }
+    if (playerONE->head.x == -1 || playerONE->head.x == HEIGHT || playerONE->head.y == -1 || playerONE->head.y == WIDTH ){
         *gameEnded = 1;
         playerONE->flag = 0;
     }
      if (board[playerONE->head.x][playerONE->head.y] == FOOD){
         playerONE->lenght++; 
-        playSound(1500);
-        mute();
+        playSound(200);
+        //mute();
         generateFood(board);
     }
     //actualizo el cuerpo mientras se mueve
@@ -150,7 +156,7 @@ void action(char board[HEIGHT][WIDTH], player* playerONE, int *gameEnded){
 
 
 void gameFunction(char board[HEIGHT][WIDTH], player * player){
-
+    playSound(440);
     player->head.x = WIDTH/2;
     player->head.y = HEIGHT/2;
     player->move = RIGHT;

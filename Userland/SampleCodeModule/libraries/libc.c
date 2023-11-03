@@ -15,7 +15,7 @@ static int buffSize = 0;
 static char buffer[BUFF_LEN]={0};
 static int firstChange=1;
 static int changedUserName=0;
-static int rand_seed = 42;
+unsigned int rand_seed = 42;
 
 void playSound(uint32_t frequency){
     _syscall(SYS_SOUND_ID, frequency,0,0,0,0);
