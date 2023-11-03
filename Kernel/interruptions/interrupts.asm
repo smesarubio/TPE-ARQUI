@@ -14,12 +14,14 @@ GLOBAL _irq04Handler
 GLOBAL _irq05Handler
 GLOBAL _irq60Handler
 
-GLOBAL _exception0Handler
+GLOBAL _exception00Handler
+GLOBAL _exception06Handler
+
 GLOBAL zero_division_exception
 EXTERN irqDispatcher
 EXTERN exceptionDispatcher
 
-
+EXTERN getStackBase
 SECTION .text
 
 %macro pushState 0
@@ -79,8 +81,8 @@ SECTION .text
 	pushState
 
 	mov rdi, %1 ; pasaje de parametro
+	mov rsi, regs
 	call exceptionDispatcher
-
 	popState
 	iretq
 %endmacro
@@ -170,15 +172,51 @@ _irq60Handler:
 	
 
 ;Zero Division Exception
-_exception0Handler:
+_exception00Handler:
+	call getStackBase
+	mov [rsp+24],rax 
+	mov rax, userland
+	mov [rsp], rax 
 	exceptionHandler 0
+	iretq
 
+_exception06Handler:
+	mov [regs], byte r15
+	mov [regs+8], byte  r14
+	mov [regs+8*2], byte r13
+	mov [regs+8*3], byte r12
+	mov [regs+8*4], byte r11
+	mov [regs+8*5], byte r10
+	mov [regs+8*6], byte r9
+	mov [regs+8*7], byte r8
+	mov [regs+8*8], byte rsi 
+	mov [regs+8*9], byte rdi 
+	mov [regs+8*10], byte rbp 
+	mov [regs+8*11], byte rdx 
+	mov [regs+8*12], byte rcx
+	mov [regs+8*13], byte rbx 
+	mov [regs+8*14], byte rax 
+	mov [regs+8*15], byte rsp 
+	mov rax, [rsp] ;rip
+	mov [regs+8*16], rax 
+	
+
+	call getStackBase
+	mov [rsp+24],rax 
+	mov rax, userland
+	mov [rsp], rax 
+	;push regs
+	exceptionHandler 6
+	iretq
 haltcpu:
 	cli
 	hlt
 	ret
 
 
+section .rodata
+	userland equ 0x400000
 
 
-
+section .bss 
+	regs resq 17

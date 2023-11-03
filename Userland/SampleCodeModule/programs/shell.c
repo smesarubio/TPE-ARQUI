@@ -5,8 +5,10 @@
 
 static int  startedShell = 0;
 static char username[] = "Sanchu";
-static char commandList[][30] = {"help","divzero","inforeg","clear","clock","snake",0};
-void (*commandFuncts[])() = {help,divzero,registersinfo,clearScreen,rtclock,snake};
+static char commandList[][30] = {"help","divzero","inforeg","clear","clock","snake","opcode",0};
+void (*commandFuncts[])() = {help,divzero,registersinfo,clearScreen,rtclock,snake,opCode};
+// static char commandList[][30] = {"help","divzero","inforeg","clear","clock","opcode",0};
+// void (*commandFuncts[])() = {help,divzero,registersinfo,clearScreen,rtclock,opCode};
 
 void startShell()
 {
@@ -75,7 +77,8 @@ void runShell(){
             c = readChar();
             if(c!='\n' && c!=0){
                 if(c == '\b'){
-                    inputSize--;
+                    userInput[--inputSize]=0;
+                    //inputSize--;
                 }else{
                     userInput[inputSize++] = c;
                 }
@@ -90,6 +93,7 @@ void runShell(){
             if(argc == -1) {
                 printf("\nIngreso argumentos de mas.\nLa maxima cantidad de argumentos permitida es: %d.\n\n", MAX_ARGUMENTS);
             }
+
             for (int i = 0; commandList[i][0]!=0; i++)
             {
                 if(strcmp(command,commandList[i])==0){

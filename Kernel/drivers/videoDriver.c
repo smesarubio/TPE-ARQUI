@@ -227,6 +227,7 @@ void write(char c, t_color bgColor, t_color foreColor){
 }
 
 
+
 void printTab(){
 	for (int i = 0; i < 8*font_size; i++)
 	{
