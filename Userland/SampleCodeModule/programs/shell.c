@@ -5,10 +5,8 @@
 
 static int  startedShell = 0;
 static char username[] = "Sanchu";
-static char commandList[][30] = {"help","divzero","inforeg","clear","clock","snake","opcode", "player2",0};
-void (*commandFuncts[])() = {help,divzero,registersinfo,clearScreen,rtclock,snake,opCode, player2};
-// static char commandList[][30] = {"help","divzero","inforeg","clear","clock","opcode",0};
-// void (*commandFuncts[])() = {help,divzero,registersinfo,clearScreen,rtclock,opCode};
+static char commandList[][30] = {"help","divzero","inforeg","clear","clock","snake","opcode", 0};
+void (*commandFuncts[])(void*) = {help,divzero,registersinfo,clearScreen,rtclock,snake,opCode};
 
 void startShell()
 {
@@ -29,6 +27,7 @@ static int getCommandArgs(char* userInput, char* command, char argv[MAX_ARGUMENT
     for(i = 0; userInput[i] != 0 && userInput[i] != ' '; i++) {
         command[i] = userInput[i];
     }
+    
     command[i] = 0;
     int argIdx = 0;
 
@@ -97,7 +96,12 @@ void runShell(){
             for (int i = 0; commandList[i][0]!=0; i++)
             {
                 if(strcmp(command,commandList[i])==0){
-                    commandFuncts[i]();
+                    int arg=0;
+                    if(argc > 0){
+                        char arg2 = argv[0][0];
+                        arg = arg2-'0';
+                    }
+                    commandFuncts[i](arg);
                     found = 1;
                 }
             }

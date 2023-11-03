@@ -12,8 +12,7 @@ void opcodeExp();
 
 void help(){
     printf("\n Available commands:\n");
-    printf("\nhelp\ndivzero\ninforeg\nclear\nclock\nsnake\nplayer2");
-    //printf("\nhelp\ndivzero\ninforeg\nclear\nclock\nopcode\n");
+    printf("\nhelp\ndivzero\ninforeg\nclear\nclock\nsnake\n");
 }
 
 void divzero(){
@@ -64,13 +63,15 @@ void timeFormat(){
     printf(" %s\n", rta);
 }
 
-void snake(){
-    if (!startGame(1)){
+void snake(int players){
+    if(players == 0){
+        printf("Select amount of players, type snake <players>.\n");
+    }
+    if(players > 2){
+        printf("Max players is 2.\n");
         return;
     }
-}
-void player2(){
-    if (!startGame(2)){
+    if (!startGame(players)){
         return;
     }
 }
