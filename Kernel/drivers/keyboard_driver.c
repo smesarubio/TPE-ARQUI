@@ -5,7 +5,7 @@
 #include <keyboard_driver.h>
 #include <syscalls.h>
 #include <stdint.h>
-
+#include <sound.h>
 
 #define PRESS 1
 #define RELEASE 2
@@ -85,6 +85,11 @@ void keyboard_handler(uint64_t * rsp){
                 return;
             }
             if(ScanCodes[key] == '\n'){
+                for (int i = 0; i < 100; i++)
+                {
+                    playSound(500);
+                    mute();
+                }
                 putInBuffer('\n');
                 return;
             }
