@@ -123,7 +123,7 @@ void action(char board[HEIGHT][WIDTH], player* playerONE, int *gameEnded){
     }
     for (int i = 0; i < playerONE->lenght ; i++){
         if (playerONE->head.x == playerONE->body[i].x && playerONE->head.y == playerONE->body[i].y){
-            *gameEnded = 0;
+            *gameEnded = 1;
             playerONE->flag = 0;
         }
     }
