@@ -3,17 +3,26 @@
 
 #include <colors.h>
 
+//ONE PLAYER
 #define UP 'w'
 #define DOWN 's'
 #define LEFT 'a'
 #define RIGHT 'd'
-#define SNAKE_HEAD 'h'
-#define SNAKE_TAIL 't'
+//SECONDPLAYER
+#define UP2 'i'
+#define DOWN2 'k'
+#define LEFT2 'j'
+#define RIGHT2 'l'
+//SNAKE
+#define SNAKE_ONE '1'
+#define SNAKE_TWO '2'
 #define FOOD 'f'
 
 #define WIDTH 24
 #define HEIGHT 32
 #define SIZE 32
+
+#define NULL ((void*)0)
 
 typedef struct Point{
     int x;
@@ -31,9 +40,12 @@ typedef struct player{
 } player;
 
 int startGame(int players);
-void paintBackground(char board[HEIGHT][ WIDTH], player * player);
-void singlePlayer();
-void gameFunction(char board[HEIGHT][WIDTH], player * player);
-void action(char board[HEIGHT][WIDTH], player * playerONE, int * gameEnded);
+void paintBackground(char board[HEIGHT][ WIDTH], player * playerONE, player * playerTWO);
+void Snake(char board[HEIGHT][WIDTH], player * player, int color, char character, char DIR);
+void UpdateMove(char key, player * player);
+void action(char board[HEIGHT][WIDTH], player * player, int * gameEnded);
 void generateFood(char board[HEIGHT][WIDTH]);
+// void gameOver();
+void singlePlayer();
+void doublePlayers();
 #endif

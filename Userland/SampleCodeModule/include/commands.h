@@ -9,5 +9,6 @@ void clearScreen();
 void rtclock();
 void snake();
 void opCode();
+void player2();
 
 #endif

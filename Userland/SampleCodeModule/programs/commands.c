@@ -12,7 +12,7 @@ void opcodeExp();
 
 void help(){
     printf("\n Available commands:\n");
-    printf("\nhelp\ndivzero\ninforeg\nclear\nclock\nsnake");
+    printf("\nhelp\ndivzero\ninforeg\nclear\nclock\nsnake\nplayer2");
     //printf("\nhelp\ndivzero\ninforeg\nclear\nclock\nopcode\n");
 }
 
@@ -66,6 +66,11 @@ void timeFormat(){
 
 void snake(){
     if (!startGame(1)){
+        return;
+    }
+}
+void player2(){
+    if (!startGame(2)){
         return;
     }
 }

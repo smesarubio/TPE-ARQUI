@@ -13,6 +13,7 @@ typedef enum
     FOREGROUND = 0xdcdfe4,
     LIGHT_BACKGROUND = 0xE9FF33,
     DARK_BACKGROUND = 0xCBFF33,
+    FRUIT = 0xFFB266,
 }t_color;
 
 #endif
