@@ -41,7 +41,7 @@ typedef struct player{
 
 int startGame(int players);
 void paintBackground(char board[HEIGHT][ WIDTH], player * playerONE, player * playerTWO);
-void Snake(char board[HEIGHT][WIDTH], player * player, int color, char character, char DIR);
+void Snake(char board[HEIGHT][WIDTH], player * player, int color, char character, char DIR, int posX, int posY);
 void UpdateMove(char key, player * player);
 void action(char board[HEIGHT][WIDTH], player * player, int * gameEnded);
 void generateFood(char board[HEIGHT][WIDTH]);

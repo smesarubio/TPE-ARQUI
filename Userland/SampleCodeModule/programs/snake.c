@@ -46,11 +46,9 @@ void paintBackground(char board[HEIGHT][WIDTH], player * playerONE, player * pla
     }
 }
 
-void Snake(char board[HEIGHT][WIDTH], player * player, int color, char character, char DIR){
-    player->head.x = randInt(0, HEIGHT - 1);
-    player->head.y = randInt(0, WIDTH - 1);
-    // player->head.x = WIDTH/2;
-    // player->head.y = HEIGHT/2;
+void Snake(char board[HEIGHT][WIDTH], player * player, int color, char character, char DIR, int posX, int posY){
+    player->head.x = posX;
+    player->head.y = posY;
     player->move = DIR;
     player->gender = color;
     player->character = character;
@@ -120,7 +118,6 @@ void action(char board[HEIGHT][WIDTH], player* player, int *gameEnded){
     //borro la ultima posicion de la cola
     Point lastMove = player->body[player->lenght];
     board[lastMove.x][lastMove.y] = ' ';
-    //paintBackground(board, player, NULL);
 }
 
 void UpdateMove(char key, player*player){
@@ -152,8 +149,9 @@ void singlePlayer(){
     gameEnded = 0;
 
     player playerONE;
-    
-    Snake(board, &playerONE, COMP1, SNAKE_ONE, RIGHT);
+    int posX = WIDTH/2;
+    int posY = HEIGHT/2;
+    Snake(board, &playerONE, COMP1, SNAKE_ONE, RIGHT, posX, posY);
     generateFood(board);
     paintBackground(board,&playerONE, NULL);
     char key = RIGHT;
@@ -176,9 +174,12 @@ void doublePlayers(){
 
     player playerONE;
     player playerTWO;
-    
-    Snake(board, &playerONE, COMP1, SNAKE_ONE, RIGHT);
-    Snake(board, &playerTWO, COMP2, SNAKE_TWO, DOWN2);
+    int posX = WIDTH/2;
+    int posY = HEIGHT/2;
+    Snake(board, &playerONE, COMP1, SNAKE_ONE, RIGHT, posX, posY);
+    posX = HEIGHT/2;
+    posY = WIDTH/2;
+    Snake(board, &playerTWO, COMP2, SNAKE_TWO, DOWN2, posX, posY);
     generateFood(board);
     paintBackground(board,&playerONE, &playerTWO);
     char keyONE = RIGHT;
