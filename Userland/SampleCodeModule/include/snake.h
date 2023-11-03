@@ -32,11 +32,8 @@ typedef struct player{
 
 int startGame(int players);
 void paintBackground(char board[HEIGHT][ WIDTH], player * player);
-void clearPixel(char board[HEIGHT][WIDTH], int i, int j);
 void singlePlayer();
 void gameFunction(char board[HEIGHT][WIDTH], player * player);
 void action(char board[HEIGHT][WIDTH], player * playerONE, int * gameEnded);
-void handleInput(player * playerONE);
-//void updateBackground(char board[HEIGHT][WIDTH], player * playerONE);
 void generateFood(char board[HEIGHT][WIDTH]);
 #endif

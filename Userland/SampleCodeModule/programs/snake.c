@@ -1,8 +1,6 @@
 #include <libc.h>
 #include <snake.h>
 
-
-
 int gameEnded;
 
 int startGame(int players){
@@ -44,8 +42,10 @@ void paintBackground(char board[HEIGHT][WIDTH], player * player){
     }
 }
 
-void clearPixel(char board[HEIGHT][WIDTH], int i, int j){
-    board[i][j] = ' ';
+void generateFood(char board[HEIGHT][WIDTH]){
+    int randy = randInt(0, WIDTH - 1);
+    int randx = randInt(0, HEIGHT - 1);
+    board[randx][randy] = FOOD;
 }
 
 void singlePlayer(){
@@ -75,35 +75,6 @@ void singlePlayer(){
     
 }
 
-void move(char board[HEIGHT][WIDTH], player * playerOne){
-    int current_hx = playerOne->head.x;
-    int current_hy = playerOne->head.y;
-    drawSquare(SIZE, current_hx*SIZE, current_hy*SIZE, ERROR);
-    switch (playerOne->move) {
-        case UP:
-            playerOne->head.y--;
-            break;
-        case DOWN:
-            playerOne->head.y++;
-            break;
-        case LEFT:
-            playerOne->head.x--;
-            break;
-        case RIGHT:
-            playerOne->head.x++;
-            break;
-    }
-
-    drawSquare(SIZE, playerOne->head.x * SIZE,playerOne->head.y * SIZE, ERROR);
-
-}
-
-void handleInput(player * playerONE){
-    char move;
-    move = getChar();
-    playerONE->move = move;
-    return;
-}
 
 void action(char board[HEIGHT][WIDTH], player* playerONE, int *gameEnded){
     Point prevHead = playerONE->head;
@@ -174,12 +145,6 @@ void gameFunction(char board[HEIGHT][WIDTH], player * player){
         board[player->body[i].x][player->body[i].y] = SNAKE_TAIL;
     }
     board[player->head.x][player->head.y] = player->character;
-}
-
-void generateFood(char board[HEIGHT][WIDTH]){
-    int randy = randInt(0, WIDTH - 1);
-    int randx = randInt(0, HEIGHT - 1);
-    board[randx][randy] = FOOD;
 }
 
 
