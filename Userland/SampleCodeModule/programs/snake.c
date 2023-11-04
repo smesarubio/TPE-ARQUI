@@ -52,14 +52,15 @@ void Snake(char board[HEIGHT][WIDTH], player * player, int color, char character
     player->move = DIR;
     player->gender = color;
     player->character = character;
-    player->lenght = 1;
+    player->length = 1;
     player->flag = 1;
+    player->score = 0;
     for (int i = 0; i< HEIGHT; i++){
         for (int j=0; j<WIDTH; j++)
             board[i][j] = ' ';
     }
 
-    for (int i = 0; i<player->lenght; i++){
+    for (int i = 0; i<player->length; i++){
         player->body[i].x = player->head.x;
         player->body[i].y = player->head.y - (i + 1);
         board[player->body[i].x][player->body[i].y] = character;
@@ -68,55 +69,72 @@ void Snake(char board[HEIGHT][WIDTH], player * player, int color, char character
 }
 
 
-void action(char board[HEIGHT][WIDTH], player* player, int *gameEnded){
-    Point prevHead = player->head;
-    switch (player->move) {
+void action(char board[HEIGHT][WIDTH], player* playerONE, player * playerTWO,int *gameEnded){
+    Point prevHead = playerONE->head;
+    switch (playerONE->move) {
         case UP:
         case UP2:
-            player->head.y--;
+            playerONE->head.y--;
             break;
         case DOWN:
         case DOWN2:
-            player->head.y++;
+            playerONE->head.y++;
             break;
         case LEFT:
         case LEFT2:
-            player->head.x--;
+            playerONE->head.x--;
             break;
         case RIGHT:
         case RIGHT2:
-            player->head.x++;
+            playerONE->head.x++;
             break;
     }
-    for (int i = 0; i < player->lenght ; i++){
-        if (player->head.x == player->body[i].x && player->head.y == player->body[i].y){
+    if (playerTWO != NULL){
+        if (playerONE->head.x == playerTWO->head.x && playerONE->head.y == playerTWO->head.y){
             *gameEnded = 1;
-            player->flag = 0;
+            playerONE->flag = 0;
+            playerTWO->flag = 0;
+        }else {
+            for (int i = 0; i < playerTWO->length; i++) {
+                if (playerONE->head.x == playerTWO->body[i].x && playerONE->head.y == playerTWO->body[i].y) {
+                    *gameEnded = 1;
+                    playerONE->flag = 0;
+                    playerTWO->flag = 0;
+                }
+            }
+        }
+       
+    }
+    for (int i = 0; i < playerONE->length ; i++){
+        if (playerONE->head.x == playerONE->body[i].x && playerONE->head.y == playerONE->body[i].y){
+            *gameEnded = 1;
+            playerONE->flag = 0;
         }
     }
-    if (player->head.x == -1 || player->head.x == HEIGHT || player->head.y == -1 || player->head.y == WIDTH ){
+    if (playerONE->head.x == -1 || playerONE->head.x >= HEIGHT-1 || playerONE->head.y == -1 || playerONE->head.y >= WIDTH ){
         *gameEnded = 1;
-        player->flag = 0;
+        playerONE->flag = 0;
     }
-     if (board[player->head.x][player->head.y] == FOOD){
-        player->lenght++; 
+     if (board[playerONE->head.x][playerONE->head.y] == FOOD){
+        playerONE->length++; 
         playSound(100);
-        mute();
+        playerONE->score++;
+        //mute();
         generateFood(board);
     }
     //actualizo el cuerpo mientras se mueve
-    for (int i = player->lenght - 1; i >= 0; i--) {
-        player->body[i + 1] = player->body[i];
+    for (int i = playerONE->length - 1; i >= 0; i--) {
+        playerONE->body[i + 1] = playerONE->body[i];
     }
     // muevo la cabeza
-    player->body[0] = prevHead;
+    playerONE->body[0] = prevHead;
     // Update board with new positions
-    board[player->head.x][player->head.y] = player->character;
-    for (int i = 0; i < player->lenght; i++) {
-        board[player->body[i].x][player->body[i].y] = player->character;
+    board[playerONE->head.x][playerONE->head.y] = playerONE->character;
+    for (int i = 0; i < playerONE->length; i++) {
+        board[playerONE->body[i].x][playerONE->body[i].y] = playerONE->character;
     }
     //borro la ultima posicion de la cola
-    Point lastMove = player->body[player->lenght];
+    Point lastMove = playerONE->body[playerONE->length];
     board[lastMove.x][lastMove.y] = ' ';
 }
 
@@ -158,7 +176,7 @@ void singlePlayer(){
     while (!gameEnded){
         key = readChar();
         UpdateMove(key, &playerONE, UP, DOWN, LEFT, RIGHT);
-        action(board, &playerONE, &gameEnded);
+        action(board, &playerONE, NULL,&gameEnded);
         paintBackground(board, &playerONE, NULL);
         waitSec();
     }
@@ -177,8 +195,8 @@ void doublePlayers(){
     int posX = WIDTH/2;
     int posY = HEIGHT/2;
     Snake(board, &playerONE, COMP1, SNAKE_ONE, RIGHT, posX, posY);
-    posX = HEIGHT/2;
-    posY = WIDTH/2;
+    posX = 8;
+    posY = 8;
     Snake(board, &playerTWO, COMP2, SNAKE_TWO, DOWN2, posX, posY);
     generateFood(board);
     paintBackground(board,&playerONE, &playerTWO);
@@ -187,10 +205,10 @@ void doublePlayers(){
     while (!gameEnded){
         keyONE = readChar();
         UpdateMove(keyONE, &playerONE, UP, DOWN, LEFT, RIGHT);
-        action(board, &playerONE, &gameEnded);
+        action(board, &playerONE, &playerTWO,&gameEnded);
         keyTWO = readChar();
         UpdateMove(keyTWO, &playerTWO, UP2, DOWN2, LEFT2, RIGHT2);
-        action(board, &playerTWO, &gameEnded);
+        action(board, &playerTWO, &playerONE,&gameEnded);
         paintBackground(board, &playerONE, &playerTWO);
         waitSec();
     }

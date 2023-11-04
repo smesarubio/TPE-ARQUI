@@ -35,15 +35,16 @@ typedef struct player{
     int move;
     int gender; //rosa o celeste
     char character;
-    int lenght;
+    int length;
     int flag;
+    int score;
 } player;
 
 int startGame(int players);
 void paintBackground(char board[HEIGHT][ WIDTH], player * playerONE, player * playerTWO);
 void Snake(char board[HEIGHT][WIDTH], player * player, int color, char character, char DIR, int posX, int posY);
 void UpdateMove(char key, player * player, char moveUp, char moveDown, char moveLeft, char moveRight );
-void action(char board[HEIGHT][WIDTH], player * player, int * gameEnded);
+void action(char board[HEIGHT][WIDTH], player * playerONE, player * playerTWO,int * gameEnded);
 void generateFood(char board[HEIGHT][WIDTH]);
 // void gameOver();
 void singlePlayer();

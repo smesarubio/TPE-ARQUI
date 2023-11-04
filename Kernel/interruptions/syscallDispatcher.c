@@ -29,7 +29,7 @@ uint64_t syscall_selector(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx
     case SYS_TICKS_ID:
         return ticks_elapsed();
     case SYS_SOUND_ID:
-        playSound(rsi);
+        beep(rsi);
         break;
     case SYS_MUTE_ID:
         mute();

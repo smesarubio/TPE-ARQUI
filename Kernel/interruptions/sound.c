@@ -1,4 +1,5 @@
 #include <sound.h>
+#include <time.h>
 
 void playSound(uint32_t frequence){
     uint32_t Div;
@@ -20,4 +21,10 @@ void playSound(uint32_t frequence){
 void mute(){
     uint8_t tmp = inSpeaker(0x61) & 0xFC;
     outSpeaker(0x61, tmp);
+}
+
+void beep(uint32_t freq){
+    playSound(freq);
+    sleep(10);
+    mute();
 }
