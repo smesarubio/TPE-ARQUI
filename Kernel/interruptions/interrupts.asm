@@ -221,8 +221,6 @@ haltcpu:
 
 section .rodata
 	userland equ 0x400000
-	string db 'llegue', 0
-
 
 section .bss 
 	regs resq 17
