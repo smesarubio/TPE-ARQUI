@@ -1,5 +1,6 @@
 #!/bin/bash
 # Set audio device variable
+
 if [ "$(uname)" == "Darwin" ]; then
     audio="coreaudio"
 else

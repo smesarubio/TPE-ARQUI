@@ -22,6 +22,7 @@ EXTERN irqDispatcher
 EXTERN exceptionDispatcher
 
 EXTERN getStackBase
+EXTERN printf
 SECTION .text
 
 %macro pushState 0
@@ -170,17 +171,7 @@ _irq60Handler:
 	pop rbx
 	iretq
 	
-
-;Zero Division Exception
-_exception00Handler:
-	call getStackBase
-	mov [rsp+24],rax 
-	mov rax, userland
-	mov [rsp], rax 
-	exceptionHandler 0
-	iretq
-
-_exception06Handler:
+%macro copyRegs 0
 	mov [regs], byte r15
 	mov [regs+8], byte  r14
 	mov [regs+8*2], byte r13
@@ -200,6 +191,20 @@ _exception06Handler:
 	mov rax, [rsp] ;rip
 	mov [regs+8*16], rax 
 	
+%endmacro
+;Zero Division Exception
+_exception00Handler:
+
+	copyRegs
+	call getStackBase
+	mov [rsp+24],rax 
+	mov rax, userland
+	mov [rsp], rax 
+	exceptionHandler 0
+	iretq
+
+_exception06Handler:
+	copyRegs
 
 	call getStackBase
 	mov [rsp+24],rax 
@@ -216,6 +221,7 @@ haltcpu:
 
 section .rodata
 	userland equ 0x400000
+	string db 'llegue', 0
 
 
 section .bss 

@@ -6,8 +6,8 @@
 #include <clock.h>
 #include <snake.h>
 
-void zero_division_exception();
-void opcodeExp();
+void _opcodeExp();
+void _div_zero();
 #define REGISTERS_SIZE 17
 
 void help(){
@@ -16,10 +16,8 @@ void help(){
 }
 
 void divzero(){
-   int x = 1;
-   int y = 0;
-   int exception = x/y;
-    //_syscall(SYS_EXIT_ID, 0, 0, 0, 0, 0);
+   _div_zero();
+   return;
 }
 
 void opCode(){

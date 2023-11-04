@@ -4,7 +4,7 @@
 #include <clock.h>
 
 static int  startedShell = 0;
-static char username[] = "Sanchu";
+static char username[] = "User";
 static char commandList[][30] = {"help","divzero","inforeg","clear","clock","snake","opcode", 0};
 void (*commandFuncts[])(void*) = {help,divzero,registersinfo,clearScreen,rtclock,snake,opCode};
 

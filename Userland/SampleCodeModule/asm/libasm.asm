@@ -2,6 +2,7 @@
 GLOBAL _syscall
 
 GLOBAL _opcodeExp
+GLOBAL _div_zero
 GLOBAL clock
 
 section .text
@@ -34,6 +35,10 @@ _syscall:
 	mov rsp, rbp
     pop rbp
 
+    ret
+_div_zero:
+    mov rax, 0
+    div rax
     ret
 _opcodeExp:
     UD2

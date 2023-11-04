@@ -9,7 +9,6 @@ char * registersNames[] = {"R15","R14","R13","R12","R11","R10","R9","R8","RSI","
 
 uint32_t changeBase(uint64_t value, char *buffer, uint32_t base);
 
-static void zero_division();
 static void printRegs();
 
 void exceptionDispatcher(int exception, uint8_t * regs) {
