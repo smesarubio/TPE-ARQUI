@@ -10,6 +10,6 @@
 #define TIME_ZONE -3
 
 void timeFormat();
-void dateFormat();
+
 
 #endif

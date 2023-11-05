@@ -12,7 +12,7 @@ void _div_zero();
 
 void help(){
     printf("\n Available commands:\n");
-    printf("\nhelp\ndivzero\ninforeg\nclear\nclock\nsnake\n");
+    printf("\n help\tdivzero\tinforeg\tclear\tclock\tsnake\n");
 }
 
 void divzero(){
@@ -28,7 +28,8 @@ void opCode(){
 char * registersNames[] = {"R15","R14","R13","R12","R11","R10","R9","R8","RSI","RDI","RBP","RDX","RCX","RBX","RAX","RSP", "RIP"};
 
 void registersinfo(){
-    printf("\nRegistros: \n");
+    printf("\n Presionar ctrl + r para obtener la actualizacion de los registros\n");
+    printf("\n Registros: \n");
     uint64_t* regs = (uint64_t *) _syscall(SYS_INFOREG_ID, 0, 0, 0, 0, 0);
     for(int i = 0 ; i < REGISTERS_SIZE ; i++){
         printf(" %s:\t%x\n",registersNames[i], regs[i]);

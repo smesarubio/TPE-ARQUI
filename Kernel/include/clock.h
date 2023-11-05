@@ -10,6 +10,5 @@
 #define TIME_ZONE -3
 
 void timeFormat(uint8_t h, uint8_t m, uint8_t sec);
-void dateFormat(uint8_t d, uint8_t m, uint8_t y);
 
 #endif
