@@ -9,6 +9,8 @@ int get_minutes();
 int get_hours();
 int get_seconds();
 
+#define GMT -3
+
 static uint64_t registers[19] = {0};
 
 void sys_write(char *str, uint8_t len, t_color bgColor, t_color ftColor, int usrLen)
@@ -65,25 +67,23 @@ void updateRegisters(uint64_t* rsp){
     } 
 }
 
-uint8_t sys_rtc(uint64_t id){
-	uint8_t time;
+static unsigned int decode(unsigned char time){
+    return (time >> 4) * 10 + (time & 0x0F); 
+}
+
+unsigned int sys_rtc(unsigned char id){
 	switch(id){
 		case HOURS:
-			time = get_hours() + TIME_ZONE;
-			break;
+			return (get_hours() + GMT + 24) % 24 ;
 		case MINUTES:
-			time = get_minutes();
-			break;
+			return decode(get_minutes());
 		case SECONDS:
-			time = get_seconds();
-			break;
+			return decode(get_seconds());
 		default:
 			break;
 	}
-	
-	uint8_t final = ((time >> 4) * 10 + (time & 0xf));
-    return final; 
 }
+
 
 void sys_drawSquare(int size, int x, int y, int color){
 	drawSquare(size, x, y, color);

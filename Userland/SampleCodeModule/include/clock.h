@@ -1,7 +1,6 @@
 #ifndef CLOCK_H
 #define CLOCK_H
 
-//por default, ver pagina
 #define SECONDS 0x00
 #define MINUTES 0x02
 #define HOURS 0x04

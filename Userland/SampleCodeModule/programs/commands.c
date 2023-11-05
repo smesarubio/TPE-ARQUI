@@ -61,6 +61,8 @@ void timeFormat(){
     printf(" %s\n", rta);
 }
 
+
+
 void snake(int players){
     if(players == 0){
         printf("Select amount of players, type snake <players>.\n");

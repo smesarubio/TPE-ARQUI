@@ -2,6 +2,7 @@ GLOBAL cpuVendor
 GLOBAL get_seconds
 GLOBAL get_hours
 GLOBAL get_minutes
+
 GLOBAL getKey
 GLOBAL outSpeaker
 GLOBAL inSpeaker
@@ -43,8 +44,6 @@ cpuVendor:
 %endmacro
 
 %macro get_rtc_value 1
-	xor rax, rax
-	xor rdi, rdi
 	mov al, %1
 	out 70h, al
 	in al, 71h
@@ -65,7 +64,6 @@ get_hours:
 	enter_func
 	get_rtc_value 04
 	leave_func
-
 
 getKey:
 	enter_func
