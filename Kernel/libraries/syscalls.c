@@ -11,7 +11,7 @@ int get_seconds();
 
 #define GMT -3
 
-static uint64_t registers[19] = {0};
+static uint64_t registers[17] = {0};
 
 void sys_write(char *str, uint8_t len, t_color bgColor, t_color ftColor, int usrLen)
 {
@@ -62,8 +62,8 @@ uint64_t sys_inforeg(){
 }
 
 void updateRegisters(uint64_t rsp[17]){
-    for (int i=0 ; i<19;i++) {
-        registers[i] = rsp[i]; 
+    for (int i=0 ; i<=16;i++) {
+        registers[i] = rsp[i];
     } 
 }
 

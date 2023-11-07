@@ -87,6 +87,8 @@ SECTION .text
 %macro irqHandlerMaster 1
 	pushState
 	copyRegs
+	mov rax, [rsp+8*15]
+	mov[regs+8*16],rax
 	mov rdi, %1 ; pasaje de parametro
 	mov rsi, regs
 	call irqDispatcher
