@@ -25,6 +25,29 @@ EXTERN getStackBase
 EXTERN printf
 SECTION .text
 
+
+	
+%macro copyRegs 0
+	mov [regs], byte r15
+	mov [regs+8], byte  r14
+	mov [regs+8*2], byte r13
+	mov [regs+8*3], byte r12
+	mov [regs+8*4], byte r11
+	mov [regs+8*5], byte r10
+	mov [regs+8*6], byte r9
+	mov [regs+8*7], byte r8
+	mov [regs+8*8], byte rsi 
+	mov [regs+8*9], byte rdi 
+	mov [regs+8*10], byte rbp 
+	mov [regs+8*11], byte rdx 
+	mov [regs+8*12], byte rcx
+	mov [regs+8*13], byte rbx 
+	mov [regs+8*14], byte rax 
+	mov [regs+8*15], byte rsp 
+	mov rax, [rsp] ;rip
+	mov [regs+8*16], rax 
+	
+%endmacro
 %macro pushState 0
 	push rax
 	push rbx
@@ -63,9 +86,9 @@ SECTION .text
 
 %macro irqHandlerMaster 1
 	pushState
-
+	copyRegs
 	mov rdi, %1 ; pasaje de parametro
-	mov rsi, rsp
+	mov rsi, regs
 	call irqDispatcher
 
 	; signal pic EOI (End of Interrupt)
@@ -170,28 +193,7 @@ _irq60Handler:
 	pop r12
 	pop rbx
 	iretq
-	
-%macro copyRegs 0
-	mov [regs], byte r15
-	mov [regs+8], byte  r14
-	mov [regs+8*2], byte r13
-	mov [regs+8*3], byte r12
-	mov [regs+8*4], byte r11
-	mov [regs+8*5], byte r10
-	mov [regs+8*6], byte r9
-	mov [regs+8*7], byte r8
-	mov [regs+8*8], byte rsi 
-	mov [regs+8*9], byte rdi 
-	mov [regs+8*10], byte rbp 
-	mov [regs+8*11], byte rdx 
-	mov [regs+8*12], byte rcx
-	mov [regs+8*13], byte rbx 
-	mov [regs+8*14], byte rax 
-	mov [regs+8*15], byte rsp 
-	mov rax, [rsp] ;rip
-	mov [regs+8*16], rax 
-	
-%endmacro
+
 ;Zero Division Exception
 _exception00Handler:
 

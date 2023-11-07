@@ -46,7 +46,9 @@ char getCharCode(int key){
     return ScanCodes[key];
 }
 
-void keyboard_handler(uint64_t * rsp){
+
+
+void keyboard_handler(uint64_t rsp[17]){
     int key = getKey();
     static int capsLockOn = 0;
     int current = getOnAction(key);
@@ -64,7 +66,7 @@ void keyboard_handler(uint64_t * rsp){
                 return;
             }
             if (ctrl && ScanCodes[key] == 'r'){
-                updateRegisters((uint64_t *) rsp);
+                updateRegisters(rsp);
                 return;
             }
             if (ctrl && ScanCodes[key] == ','){

@@ -61,7 +61,7 @@ uint64_t sys_inforeg(){
 	return registers;
 }
 
-void updateRegisters(uint64_t* rsp){
+void updateRegisters(uint64_t rsp[17]){
     for (int i=0 ; i<19;i++) {
         registers[i] = rsp[i]; 
     } 

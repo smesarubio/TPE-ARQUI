@@ -25,7 +25,7 @@ uint64_t sys_read(uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint32_
 void sys_wait(uint64_t rsi, char rdx, uint64_t rcx, uint64_t r8, uint32_t r9);
 void sys_clear(uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint32_t r9);
 uint64_t sys_inforeg();
-void updateRegisters(uint64_t *rsp);
+void updateRegisters(uint64_t rsp[17]);
 unsigned int sys_rtc(unsigned char rsi);
 void sys_drawSquare(int size, int x, int y, int color);
 
