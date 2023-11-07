@@ -28,22 +28,22 @@ SECTION .text
 
 	
 %macro copyRegs 0
-	mov [regs], byte r15
-	mov [regs+8], byte  r14
-	mov [regs+8*2], byte r13
-	mov [regs+8*3], byte r12
-	mov [regs+8*4], byte r11
-	mov [regs+8*5], byte r10
-	mov [regs+8*6], byte r9
-	mov [regs+8*7], byte r8
-	mov [regs+8*8], byte rsi 
-	mov [regs+8*9], byte rdi 
-	mov [regs+8*10], byte rbp 
-	mov [regs+8*11], byte rdx 
-	mov [regs+8*12], byte rcx
-	mov [regs+8*13], byte rbx 
-	mov [regs+8*14], byte rax 
-	mov [regs+8*15], byte rsp 
+	mov [regs], r15
+	mov [regs+8],  r14
+	mov [regs+8*2], r13
+	mov [regs+8*3], r12
+	mov [regs+8*4], r11
+	mov [regs+8*5], r10
+	mov [regs+8*6], r9
+	mov [regs+8*7], r8
+	mov [regs+8*8], rsi 
+	mov [regs+8*9], rdi 
+	mov [regs+8*10], rbp 
+	mov [regs+8*11], rdx 
+	mov [regs+8*12], rcx
+	mov [regs+8*13], rbx 
+	mov [regs+8*14], rax 
+	mov [regs+8*15], rsp 
 	mov rax, [rsp] ;rip
 	mov [regs+8*16], rax 
 	
