@@ -88,7 +88,7 @@ SECTION .text
 	pushState
 	copyRegs
 	mov rax, [rsp+8*15]
-	mov[regs+8*16],rax
+	mov[regs+8*16],rax ;saving rip
 	mov rdi, %1 ; pasaje de parametro
 	mov rsi, regs
 	call irqDispatcher
