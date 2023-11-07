@@ -218,7 +218,7 @@ void write(char c, t_color bgColor, t_color foreColor){
 		printTab();
 		return;
 	}
-	printCharAt(c, screen->currentX, screen->currentY, BACKGROUND, FOREGROUND);
+	printCharAt(c, screen->currentX, screen->currentY, bgColor, foreColor);
 	screen->currentX += 8*font_size;
 	if (screen->currentX>= screen->width){
 		screen->currentX = 2;

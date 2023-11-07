@@ -58,7 +58,7 @@ void welcomeMessage(){
  
 
 void cnf(){
-    printf("\ncommand not found\n\n");
+    printf("\ncommand not found\n\nType 'help' to see available commands\n");
 }
 
 void runShell(){
@@ -90,7 +90,7 @@ void runShell(){
             int found = 0;
             argc = getCommandArgs(userInput, command, argv);
             if(argc == -1) {
-                printf("\nIngreso argumentos de mas.\nLa maxima cantidad de argumentos permitida es: %d.\n\n", MAX_ARGUMENTS);
+                printf("\nToo many arguments\nmax allowed arguments: %d.\n\n", MAX_ARGUMENTS);
             }
 
             for (int i = 0; commandList[i][0]!=0; i++)
