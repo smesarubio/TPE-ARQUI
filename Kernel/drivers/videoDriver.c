@@ -73,7 +73,7 @@ typedef struct
 	// uint32_t firstLineWidth;
 } t_screen;
 
-t_screen * screen;
+t_screen screen[500];
 
 char screenBuffer[5000];
 int sb_dim = 0;
